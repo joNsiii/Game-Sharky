@@ -9,6 +9,7 @@ class DrawableObject {
     currentDeathImage = 0;
     coins = 0;
     poisonBottles = 0;
+    coinCollectedSound = new Audio('audio/coin-collected.mp3');
 
 
     loadImage(path) {
@@ -69,6 +70,7 @@ class DrawableObject {
     }
 
     coinCollected() {
+        this.playSounds(this.coinCollectedSound);
         this.coins++;
         if (this.coins >= 15) {
             this.coins = 15;
@@ -76,9 +78,14 @@ class DrawableObject {
     }
     
     poisonBottleCollected() {
+        // this.playSounds(this.poisonbottle);
         this.poisonBottles++
         if(this.poisonBottles >= 5) {
             this.poisonBottles = 5;
         }
     } 
+
+    playSounds(sound) {
+            sound.play();
+      }
 }

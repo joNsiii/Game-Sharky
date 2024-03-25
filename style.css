@@ -2,9 +2,37 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+    background-image: url('img/sharkie-images/3.Background/sharky-bg.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 canvas {
     background-color: black;
+    border: 1px solid black;
+    display: block;
 }
 
+/* SMartphone */
+@media only screen and (max-width : 720px) {
+    h1 {
+        display: none;
+    }
+}
+/* SMartphone */
+@media only screen and (max-width : 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+/* SMartphone */
+@media only screen and (max-height : 480px) {
+    canvas {
+        height: 100vh;
+    }
+}

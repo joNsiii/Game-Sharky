@@ -44,7 +44,15 @@ class Endboss extends MoveableObjects{
         'img/sharkie-images/2.Enemy/3 Final Enemy/1.Introduce/8.png',
         'img/sharkie-images/2.Enemy/3 Final Enemy/1.Introduce/9.png',
         'img/sharkie-images/2.Enemy/3 Final Enemy/1.Introduce/10.png',
-    ]
+    ];
+    ATTACK = [
+        'img/sharkie-images/2.Enemy/3 Final Enemy/Attack/1.png',
+        'img/sharkie-images/2.Enemy/3 Final Enemy/Attack/2.png',
+        'img/sharkie-images/2.Enemy/3 Final Enemy/Attack/3.png',
+        'img/sharkie-images/2.Enemy/3 Final Enemy/Attack/4.png',
+        'img/sharkie-images/2.Enemy/3 Final Enemy/Attack/5.png',
+        'img/sharkie-images/2.Enemy/3 Final Enemy/Attack/6.png'
+    ];
 
     constructor() {
         super().bossSpawn();
@@ -53,6 +61,7 @@ class Endboss extends MoveableObjects{
         this.loadImages(this.DEAD_ANIMATION); 
         this.loadImages(this.ENEMY_HIT); 
         this.loadImages(this.INTRODUCING); 
+        this.loadImages(this.ATTACK); 
     }
     
     bossSpawn() {
@@ -91,5 +100,9 @@ class Endboss extends MoveableObjects{
             this.isDead(this.DEAD_ANIMATION);
             this.pos_y += 0.2;
         }, 1000 / 60);
+    }
+
+    attackSharky() {
+
     }
 }
