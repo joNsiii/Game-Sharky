@@ -5,10 +5,6 @@ class Sharky extends MoveableObjects {
   height = 200;
   world;
   sharkySpeed = 5;
-  moving_sound = new Audio("audio/underwater-swim.mp3");
-  bubbleAttackSound = new Audio("audio/bubble-sound.mp3");
-  moving_sound = new Audio("audio/underwater-swim.mp3");
-
   animationPlayed = false;
   bubbleAnimation = false;
   attackAnimation = false;
@@ -115,6 +111,9 @@ class Sharky extends MoveableObjects {
         setTimeout(() => {
           this.isDead(this.DEAD_ANIMATION);
         }, 2000);
+        setTimeout(() => {
+          showGameOverScreen();
+        }, 4000);
       }
     }, 1000 / 60);
     this.movementAnimation();
@@ -128,7 +127,7 @@ class Sharky extends MoveableObjects {
         this.world.keyboard.upKey = false;
         this.world.keyboard.downKey = false;
         this.world.keyboard.rightKey = false;
-      }, 50);
+      }, 1);
       setTimeout(() => {
         clearInterval(timer);
       }, 3000);
@@ -139,16 +138,11 @@ class Sharky extends MoveableObjects {
     setInterval(() => {
       if (!this.stopMoving && !this.attackAnimation) {
         if (!this.dead && !this.isHurt() && !this.hitAnimation) {
-          if (
-            this.world.keyboard.leftKey ||
-            this.world.keyboard.upKey ||
-            this.world.keyboard.downKey ||
-            this.world.keyboard.rightKey
-          ) {
+          if (this.world.keyboard.leftKey || this.world.keyboard.upKey || this.world.keyboard.downKey || this.world.keyboard.rightKey) {
             this.playAnimation(this.movementImages);
-            this.moving_sound.play();
+            this.world.level.audio[5].play();
           } else {
-            this.moving_sound.pause();
+            this.world.level.audio[5].pause();
           }
         }
       }
@@ -159,12 +153,7 @@ class Sharky extends MoveableObjects {
     this.bossComing();
     // this.speedBoost();
     if (!this.stopMoving && !this.attackAnimation) {
-      if (
-        this.world.keyboard.leftKey ||
-        this.world.keyboard.upKey ||
-        this.world.keyboard.downKey ||
-        this.world.keyboard.rightKey
-      ) {
+      if (this.world.keyboard.leftKey || this.world.keyboard.upKey || this.world.keyboard.downKey || this.world.keyboard.rightKey) {
         if (this.world.keyboard.leftKey && this.pos_x > 0) {
           this.moveLeft();
         }
@@ -177,7 +166,9 @@ class Sharky extends MoveableObjects {
         if (this.world.keyboard.downKey && this.pos_y < 330) {
           this.moveDown();
         }
-        this.world.camera_x = -this.pos_x;
+        if (this.pos_x < 2100) {
+          this.world.camera_x = -this.pos_x;
+        }
       }
     }
   }
@@ -207,19 +198,23 @@ class Sharky extends MoveableObjects {
     }, 50);
   }
 
+  muteAllPageSounds() {
+    if (this.world.keyboard.spaceKey) {
+      let audios = document.getElementsByTagName("audio");
+
+      for (let i = 0; i < audios.length; i++) {
+        audios[i].muted = true;
+      }
+    }
+  }
+
   bubbleAttack() {
-    if (
-      this.world.keyboard.keyF &&
-      !this.isAnimated &&
-      !this.isHurt() &&
-      !this.hitAnimation &&
-      !this.bubbleAnimation
-    ) {
+    if (this.world.keyboard.keyF && !this.isAnimated && !this.isHurt() && !this.hitAnimation && !this.bubbleAnimation) {
       this.bubbleAnimation = true;
       this.attackAnimation = true;
       this.checkBubbleColor();
       setTimeout(() => {
-        this.bubbleAttackSound.play();
+        this.world.level.audio[3].play();
         this.attackAnimation = false;
         let bubble = new Bubble(this.pos_x, this.pos_y);
         this.world.bubble.push(bubble);
@@ -235,8 +230,8 @@ class Sharky extends MoveableObjects {
           if (bubble.isAttacking(enemy)) {
             world.bubble.splice(i, 1);
             this.bubbleAnimation = false;
-            this.enemieHitAnimation(enemy);
-            this.enemieHit(enemy, j);
+            bubble.enemieHitAnimation(enemy);
+            bubble.enemieHit(enemy, j);
           }
           if (this.bubbleTravelDistance(i)) {
             world.bubble.splice(i, 1);
@@ -245,6 +240,14 @@ class Sharky extends MoveableObjects {
         });
       });
     }, 100);
+  }
+
+  checkBubbleColor() {
+    if (world.posionBar.poisonBottles >= 1) {
+      this.playAnimationOnce(this.BUBBLETRAP_TOXIC);
+    } else {
+      this.playAnimationOnce(this.BUBBLETRAP_WHITE);
+    }
   }
 
   finSlap() {
@@ -305,14 +308,6 @@ class Sharky extends MoveableObjects {
   speedBoost() {
     if (world.coinBar.coins == 1) {
       this.sharkySpeed = 7;
-    }
-  }
-
-  checkBubbleColor() {
-    if (world.posionBar.poisonBottles >= 1) {
-      this.playAnimationOnce(this.BUBBLETRAP_TOXIC);
-    } else {
-      this.playAnimationOnce(this.BUBBLETRAP_WHITE);
     }
   }
 }

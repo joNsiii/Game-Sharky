@@ -1,6 +1,7 @@
 class MoveableObjects extends DrawableObject {
   health = 100;
   enemieHealth = 100;
+  endBossDead = false;
   speed = 0.2;
   sharkySpeed = 5;
   otherDirection = false;
@@ -11,16 +12,20 @@ class MoveableObjects extends DrawableObject {
   hitAnimation = false;
   isHit = false;
   bossIsSpawned = false;
-  enemyHittedSound = new Audio("audio/enemy-hit.mp3");
-  enemyDeadSound = new Audio("audio/dead-enemy-sound.mp3");
   damageToEnemies = 50;
+
+  youWin() {
+    if (this.endBossDead) {
+      world.level.audio[5].play();
+      showWinScreen();
+    }
+  }
 
   moveLeft() {
     setInterval(() => {
       this.pos_x -= this.speed;
     }, 1000 / 60);
   }
-
 
   checkPosition() {
     if (this.pos_y <= 0) {
@@ -124,13 +129,14 @@ class MoveableObjects extends DrawableObject {
 
   enemieHit(enemy, i) {
     if (enemy.enemieHealth > 1) {
-      this.playSounds(this.enemyHittedSound);
+      world.level.audio[6].play();
     }
+    if(this.name == 'bubble') {
     this.damageBoost();
     this.poisonBottleCheck();
+    }
     enemy.enemieHealth -= this.damageToEnemies;
-    if (enemy.enemieHealth == 0) {
-      this.playSounds(this.enemyDeadSound);
+    if (enemy.enemieHealth <= 0) {
       enemy.dead = true;
       this.deleteEnemieOnDeath(i);
     }
@@ -149,6 +155,8 @@ class MoveableObjects extends DrawableObject {
   introduceBoss() {
     setInterval(() => {
       if (world.sharky.pos_x >= 2100 && !this.bossIsSpawned) {
+        world.level.audio[0].pause();
+        world.level.audio[1].play();
         this.bossIsSpawned = true;
         this.spawnBoss();
       }

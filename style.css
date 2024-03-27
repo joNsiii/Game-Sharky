@@ -1,38 +1,205 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    height: 100vh;
-    background-image: url('img/sharkie-images/3.Background/sharky-bg.png');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height: 100vh;
+  background-image: url("img/sharkie-images/3.Background/sharky-bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Luckiest Guy";
 }
 
 canvas {
-    background-color: black;
-    border: 1px solid black;
-    display: block;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 20px;
+  display: block;
 }
 
-/* SMartphone */
-@media only screen and (max-width : 720px) {
-    h1 {
-        display: none;
-    }
-}
-/* SMartphone */
-@media only screen and (max-width : 720px) {
-    canvas {
-        width: 100%;
-    }
+.d-none {
+  display: none !important;
 }
 
-/* SMartphone */
-@media only screen and (max-height : 480px) {
-    canvas {
-        height: 100vh;
-    }
+h1 {
+  font-size: 80px;
+  color: white;
+  text-shadow: 1px 3px 0 #353434, 1px 13px 5px #2c2c2c;
+}
+
+#main-container {
+  width: 720px;
+  height: 480px;
+  background-image: url("img/sharkie-images/3.Background/Mesa de trabajo 1.jpg");
+  background-position: center;
+  background-size: cover;
+  border-radius: 20px;
+}
+
+#main-menu {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#control-menu {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#end-screen {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#game-over-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-over-screen img{
+  width: 600px;
+  height: 150px;
+}
+
+#win-screen {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: end;
+  margin-bottom: 50px;
+  width: 100%;
+  height: 100%;
+}
+
+#win-screen img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.arrow-back {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+td {
+  padding: 30px 30px;
+}
+
+h2 {
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: white;
+}
+
+.arrows {
+  width: 150px;
+  height: 100px;
+}
+
+.d {
+  width: 50px;
+  height: 50px;
+}
+
+.spacebar {
+  width: 200px;
+  height: 50px;
+}
+
+.headline-container {
+  margin-bottom: 100px;
+  font-size: 60px;
+  display: none;
+}
+
+.menu-btn {
+  z-index: 10;
+  width: 200px;
+  height: 50px;
+  margin: 5px;
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset, rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px, rgba(44, 187, 99, 0.15) 0 4px 8px,
+    rgba(44, 187, 99, 0.15) 0 8px 16px, rgba(44, 187, 99, 0.15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  font-family: "Luckiest Guy";
+}
+
+.menu-btn:hover {
+  box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset, rgba(44, 187, 99, 0.25) 0 1px 2px, rgba(44, 187, 99, 0.25) 0 2px 4px, rgba(44, 187, 99, 0.25) 0 4px 8px,
+    rgba(44, 187, 99, 0.25) 0 8px 16px, rgba(44, 187, 99, 0.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+/* Smartphone */
+@media only screen and (max-width: 720px) {
+  h1 {
+    display: none;
+  }
+
+  .headline-container {
+    display: flex;
+  }
+}
+/* Smartphone */
+@media only screen and (max-width: 720px) {
+  canvas {
+    width: 100%;
+  }
+
+  #main-container {
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+  }
+  td {
+    padding: 15px 10px;
+  }
+}
+
+/* Smartphone */
+@media only screen and (max-height: 480px) {
+  canvas {
+    height: 100vh;
+  }
+  #main-container {
+    height: 100vh;
+  }
 }

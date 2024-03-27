@@ -3,10 +3,13 @@ const level1 = new Level(
         new PufferFish(),
         new PufferFish(),
         new PufferFish(),
+        new PufferFish(),
+        new PufferFish(),
         new JellyFish(),
         new JellyFish(),
         new JellyFish(),
-        // new Endboss()
+        new JellyFish(),
+        new JellyFish()
     ],
     new Background(),
     [
@@ -35,4 +38,13 @@ const level1 = new Level(
         new PoisonBottle(),
         
     ],
+    [
+        new Audio('audio/bg-music.mp3'),
+        new Audio('audio/boss-music-bg.mp3'),
+        new Audio('audio/bottle-collected.mp3'),
+        new Audio('audio/bubble-sound.mp3'),
+        new Audio('audio/coin-collected.mp3'),
+        new Audio('audio/underwater-swim.mp3'),
+        new Audio('audio/hit.mp3'),
+    ]
 )

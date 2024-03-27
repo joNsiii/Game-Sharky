@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sharky</title>
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/moveable-object.class.js"></script>
@@ -22,10 +22,49 @@
     <script src="classes/endboss.class.js"></script>
     <script src="javascript/game.js"></script>
     <script src="levels/level1.js"></script>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body onload="init()">
-    <h1>Sharky</h1>
-    <canvas id="canvas" width="720px" height="480px"></canvas>
-</body>
-</html>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fonts/fonts.css">
+  </head>
+  <body>
+    <h1 id="headline">Sharky</h1>
+    <div id="main-container" class="">
+      <div id="main-menu" class="">
+        <h1 class="headline-container">SHARKY</h1>
+        <div>
+          <button class="menu-btn" onclick="startGame()">Start Game</button>
+          <button class="menu-btn" onclick="openControlMenu()">Controls</button>
+        </div>
+      </div>
+      <div id="control-menu" class="d-none">
+        <img onclick="backToMainMenu()" class="arrow-back" src="img/sharkie-images/outline_arrow_back_white_24dp.png" alt="">
+        <table>
+          <tr>
+            <td style='text-align: center;'><img class="arrows" src="img/sharkie-images/6.Botones/Key/arrow keys.png" alt="arrow-keys"></td>
+            <td><h2>Move Sharky</h2></td>
+          </tr>
+          <tr>
+            <td style='text-align: center;'><img class="d" src="img/sharkie-images/6.Botones/Key/D key.png" alt="d-key"></td>
+            <td><h2>Bubble Attack</h2></td>
+          </tr>
+          <tr>
+            <td><img class="spacebar" src="img/sharkie-images/6.Botones/Key/Space Bar key.png" alt="spacebar"></td>
+            <td><h2>Fin Slap</h2></td>
+          </tr>
+        </table>
+      </div>
+      <div id="end-screen" class="d-none">
+        <div id="game-over-screen" class="d-none">
+          <img src="img/sharkie-images/6.Botones/Tittles/Game Over/Recurso 9.png" alt="game_over">
+          <button onclick="tryAgain()" class="menu-btn">try again</button>
+        </div>
+        <div id="win-screen" class="d-none">
+          <button onclick="tryAgain()" class="menu-btn">back to menu</button>
+          <img src="img/sharkie-images/6.Botones/Try again/Mesa de trabajo 1.png" alt="win-screen">
+        </div>
+      </div>
+    </div>
+    <div>
+      <canvas id="canvas" class="d-none" width="720px" height="480px"></canvas>
+    </div>
+  </body>
+  </html>
