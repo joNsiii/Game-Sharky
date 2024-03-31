@@ -46,5 +46,9 @@ const level1 = new Level(
         new Audio('audio/coin-collected.mp3'),
         new Audio('audio/underwater-swim.mp3'),
         new Audio('audio/hit.mp3'),
+        new Audio('audio/victory.mp3'),
+        new Audio('audio/enemy-hit.mp3'),
+        new Audio('audio/enemy-dead.mp3'),
+        new Audio('audio/sharky-hit.mp3'),
     ]
 )

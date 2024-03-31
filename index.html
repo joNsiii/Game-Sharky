@@ -20,10 +20,10 @@
     <script src="classes/puffer-fish.class.js"></script>
     <script src="classes/jelly-fish.class.js"></script>
     <script src="classes/endboss.class.js"></script>
-    <script src="javascript/game.js"></script>
     <script src="levels/level1.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="fonts/fonts.css">
+    <link rel="stylesheet" href="mobile-btn.css" />
+    <link rel="stylesheet" href="fonts/fonts.css" />
   </head>
   <body>
     <h1 id="headline">Sharky</h1>
@@ -36,35 +36,68 @@
         </div>
       </div>
       <div id="control-menu" class="d-none">
-        <img onclick="backToMainMenu()" class="arrow-back" src="img/sharkie-images/outline_arrow_back_white_24dp.png" alt="">
+        <img onclick="backToMainMenu()" class="arrow-back" src="img/sharkie-images/outline_arrow_back_white_24dp.png" alt="" />
         <table>
           <tr>
-            <td style='text-align: center;'><img class="arrows" src="img/sharkie-images/6.Botones/Key/arrow keys.png" alt="arrow-keys"></td>
+            <td style="text-align: center">
+              <img class="arrows" src="img/sharkie-images/6.Botones/Key/arrow keys.png" alt="arrow-keys" />
+            </td>
             <td><h2>Move Sharky</h2></td>
           </tr>
           <tr>
-            <td style='text-align: center;'><img class="d" src="img/sharkie-images/6.Botones/Key/D key.png" alt="d-key"></td>
+            <td style="text-align: center">
+              <img class="d" src="img/sharkie-images/6.Botones/Key/D key.png" alt="d-key" />
+            </td>
             <td><h2>Bubble Attack</h2></td>
           </tr>
           <tr>
-            <td><img class="spacebar" src="img/sharkie-images/6.Botones/Key/Space Bar key.png" alt="spacebar"></td>
+            <td style="text-align: center">
+              <img class="spacebar" src="img/sharkie-images/6.Botones/Key/Space Bar key.png" alt="spacebar" />
+            </td>
             <td><h2>Fin Slap</h2></td>
           </tr>
         </table>
       </div>
       <div id="end-screen" class="d-none">
         <div id="game-over-screen" class="d-none">
-          <img src="img/sharkie-images/6.Botones/Tittles/Game Over/Recurso 9.png" alt="game_over">
+          <img src="img/sharkie-images/6.Botones/Tittles/Game Over/Recurso 9.png" alt="game_over" />
           <button onclick="tryAgain()" class="menu-btn">try again</button>
         </div>
         <div id="win-screen" class="d-none">
           <button onclick="tryAgain()" class="menu-btn">back to menu</button>
-          <img src="img/sharkie-images/6.Botones/Try again/Mesa de trabajo 1.png" alt="win-screen">
+          <img src="img/sharkie-images/6.Botones/Try again/Mesa de trabajo 1.png" alt="win-screen" />
         </div>
       </div>
     </div>
-    <div>
-      <canvas id="canvas" class="d-none" width="720px" height="480px"></canvas>
+    <div id="fullscreen-div">
+      <div class="canvas-btn-container">
+        <canvas id="canvas" class="d-none" width="720px" height="480px"></canvas>
+        <div id="control-btn" class="">
+          <button id="arrow-right" class="canvas-btn mobile-btn-border arrow-right"><img src="./img/sharkie-images/arrow-right.png" alt="right" /></button>
+          <button id="arrow-left" class="canvas-btn mobile-btn-border arrow-left"><img src="./img/sharkie-images/arrow-left.png" alt="left" /></button>
+          <button id="arrow-up" class="canvas-btn mobile-btn-border arrow-up"><img src="./img/sharkie-images/arrow-up.png" alt="up" /></button>
+          <button id="arrow-down" class="canvas-btn mobile-btn-border arrow-down"><img src="./img/sharkie-images/arrow-down.png" alt="down" /></button>
+          <button id="bubble-attack" class="canvas-btn mobile-btn-border bubble-attack"><img src="./img/sharkie-images/bubble-attack-btn.png" alt="bubble" /></button>
+          <button id="fin-attack" class="canvas-btn mobile-btn-border fin-attack"><img src="./img/sharkie-images/fin-attack-btn.png" alt="fin" /></button>
+        </div>
+        <div id="ingame-menu-btn" class="">
+          <button id="mute-btn" class="canvas-btn mute"><img id="mute-img" src="./img/sharkie-images/mute-off.png" alt="mute" /></button>
+
+          <button id="fullscreen-btn" class="canvas-btn fullscreen">
+            <img id="fs-img" src="img/sharkie-images/enter-fs.png" alt="fullscreen" />
+          </button>
+
+          <button id="home-btn" class="canvas-btn home"><img id="home-img" src="./img/sharkie-images/home.png" alt="home" /></button>
+          <div id="btm" class="back-to-home-menu-div d-none">
+            <span>back to main menu?</span>
+            <button id="yes-btn" onclick="backToMenu()" class="menu-btn">yes</button>
+            <button id="no-btn" onclick="closeMenu()" class="menu-btn">no</button>
+          </div>
+        </div>
+      </div>
     </div>
+    <div id="turn-device-message">Please rotate your device!!!</div>
+
+    <script src="javascript/game.js"></script>
   </body>
-  </html>
+</html>

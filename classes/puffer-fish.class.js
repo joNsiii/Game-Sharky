@@ -48,8 +48,8 @@ class PufferFish extends MoveableObjects {
 
     movement() {
         if (!this.dead) {
-            // this.moveUpAndDown();
-            // this.moveLeft();
+            this.moveUpAndDown();
+            this.moveLeft();
         }
     }
 

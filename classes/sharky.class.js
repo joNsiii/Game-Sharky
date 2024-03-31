@@ -1,6 +1,6 @@
 class Sharky extends MoveableObjects {
   pos_x = 20;
-  pos_y = 270;
+  pos_y = 100;
   width = 200;
   height = 200;
   world;
@@ -280,6 +280,7 @@ class Sharky extends MoveableObjects {
 
   electroHit() {
     this.shortDurationAnimation(this.ELECTRO_HIT);
+    this.world.level.audio[10].play();
     setTimeout(() => {
       this.loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
     }, 2000);
@@ -287,6 +288,7 @@ class Sharky extends MoveableObjects {
 
   hit() {
     this.health -= 5;
+    this.world.level.audio[10].play();
     this.lastHit = new Date().getTime();
   }
 

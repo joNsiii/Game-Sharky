@@ -1,0 +1,65 @@
+.canvas-btn {
+  position: absolute;
+  z-index: 10;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.canvas-btn:hover {
+    scale: 1.2;
+}
+
+.mobile-btn-border {
+    border-radius: 50%;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.arrow-right {
+  bottom: 60px;
+  left: 120px;
+}
+
+.arrow-left {
+  bottom: 60px;
+  left: 40px;
+}
+
+.arrow-up {
+  bottom: 100px;
+  left: 80px;
+}
+
+.arrow-down {
+  bottom: 20px;
+  left: 80px;
+}
+
+.bubble-attack {
+  bottom: 30px;
+  right: 120px;
+}
+
+.fin-attack {
+  bottom: 90px;
+  right: 60px;
+}
+
+.mute {
+  top: 10px;
+  right: 60px;
+  border: none;
+}
+
+.fullscreen {
+  top: 10px;
+  right: 10px;
+  border: none;
+}
+
+.home {
+  top: 10px;
+  right: 110px;
+  border: none;
+}

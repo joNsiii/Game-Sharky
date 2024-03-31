@@ -9,8 +9,10 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
+  soundMuted = false;
+  fullScreen = false;
   gameover = false;
-  musicOff = false;
+  gamePaused = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d"); /* to redner something in canvas */
@@ -20,23 +22,24 @@ class World {
     this.backGroundMusic();
     this.setWorld();
     this.checkCollision();
-    this.muteAllSounds();
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.addBackgroundToCanvas();
-    this.addToCanvas(this.healthBar);
-    this.addToCanvas(this.coinBar);
-    this.addToCanvas(this.posionBar);
-    this.reload();
-    this.ctx.translate(this.camera_x, 0);
-    this.addObjectsToCanvas(this.bubble);
-    this.addObjectsToCanvas(this.level.coin);
-    this.addObjectsToCanvas(this.level.poisonBottle);
-    this.addObjectsToCanvas(this.level.enemies);
-    this.addToCanvas(this.sharky);
-    this.ctx.translate(-this.camera_x, 0);
+    if (!this.gamePaused) {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.addBackgroundToCanvas();
+      this.addToCanvas(this.healthBar);
+      this.addToCanvas(this.coinBar);
+      this.addToCanvas(this.posionBar);
+      this.reload();
+      this.ctx.translate(this.camera_x, 0);
+      this.addObjectsToCanvas(this.bubble);
+      this.addObjectsToCanvas(this.level.coin);
+      this.addObjectsToCanvas(this.level.poisonBottle);
+      this.addObjectsToCanvas(this.level.enemies);
+      this.addToCanvas(this.sharky);
+      this.ctx.translate(-this.camera_x, 0);
+    }
   }
 
   setWorld() {
@@ -49,14 +52,6 @@ class World {
     this.level.audio[0].onended = function () {
       this.play();
     };
-  }
-
-  muteAllSounds() {
-    if (this.musicOff) {
-      this.level.audio.forEach((sound) => {
-        sound.muted = true;
-      }); 
-    }
   }
 
   checkCollision() {
@@ -134,12 +129,23 @@ class World {
 
   reload() {
     // Draw() wird immer wieder aufgerufen. 'this' funkioniert in der Funktion nicht, deshalb neue Variable für 'this'.
-    if (!this.gameover) {
+    if (!this.gameover || !this.gamePaused) {
       let self = this;
       requestAnimationFrame(function () {
         self.draw();
       });
     }
     return;
+  }
+
+  muteSound() {
+    this.soundMuted = !this.soundMuted;
+    world.level.audio.forEach((sound) => {
+      if (this.soundMuted) {
+        sound.muted = true;
+      } else {
+        sound.muted = false;
+      }
+    });
   }
 }

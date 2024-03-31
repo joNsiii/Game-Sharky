@@ -2,7 +2,7 @@ class MoveableObjects extends DrawableObject {
   health = 100;
   enemieHealth = 100;
   endBossDead = false;
-  speed = 0.2;
+  speed = Math.random() * 7;
   sharkySpeed = 5;
   otherDirection = false;
   lastHit = 0;
@@ -16,7 +16,7 @@ class MoveableObjects extends DrawableObject {
 
   youWin() {
     if (this.endBossDead) {
-      world.level.audio[5].play();
+      world.level.audio[7].play();
       showWinScreen();
     }
   }
@@ -84,11 +84,7 @@ class MoveableObjects extends DrawableObject {
 
   bubbleTravelDistance(i) {
     if (this.world.bubble.length >= 1) {
-      return (
-        Math.abs(
-          this.world.bubble[i].initialPosition - this.world.bubble[i].pos_x
-        ) > 300
-      );
+      return Math.abs(this.world.bubble[i].initialPosition - this.world.bubble[i].pos_x) > 300;
     }
   }
 
@@ -129,14 +125,15 @@ class MoveableObjects extends DrawableObject {
 
   enemieHit(enemy, i) {
     if (enemy.enemieHealth > 1) {
-      world.level.audio[6].play();
+      world.level.audio[8].play();
     }
-    if(this.name == 'bubble') {
-    this.damageBoost();
-    this.poisonBottleCheck();
+    if (this.name == "bubble") {
+      this.damageBoost();
+      this.poisonBottleCheck();
     }
     enemy.enemieHealth -= this.damageToEnemies;
     if (enemy.enemieHealth <= 0) {
+      world.level.audio[9].play();
       enemy.dead = true;
       this.deleteEnemieOnDeath(i);
     }
@@ -171,8 +168,8 @@ class MoveableObjects extends DrawableObject {
   damageBoost() {
     if (world.posionBar.poisonBottles >= 1) {
       this.damageToEnemies = 100;
-    }else {
-        this.damageToEnemies = 50;
+    } else {
+      this.damageToEnemies = 50;
     }
   }
   poisonBottleCheck() {
