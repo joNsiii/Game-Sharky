@@ -21,6 +21,7 @@ function startGame() {
   document.getElementById("main-menu").classList.add("d-none");
   document.getElementById("canvas").classList.remove("d-none");
   gameRunning = true;
+  checkWindowSize();
   displayInGameMenuButton();
   init();
 }
@@ -40,6 +41,8 @@ function showGameOverScreen() {
   document.getElementById("main-container").classList.remove("d-none");
   document.getElementById("game-over-screen").classList.remove("d-none");
   document.getElementById("canvas").classList.add("d-none");
+  hideMobileButton();
+  hideInGameMenuButton();
 }
 
 function tryAgain() {
@@ -51,6 +54,16 @@ function showWinScreen() {
   document.getElementById("end-screen").classList.remove("d-none");
   document.getElementById("main-container").classList.remove("d-none");
   document.getElementById("win-screen").classList.remove("d-none");
+  hideMobileButton();
+  hideInGameMenuButton();
+}
+
+function checkWindowSize() {
+  if (window.innerWidth < 900 || window.innerHeight < 480) {
+    displayMobileButton();
+  } else {
+    hideMobileButton();
+  }
 }
 
 window.addEventListener("load", function () {
@@ -130,9 +143,9 @@ muteBtn.addEventListener("click", () => {
 
 homeBtn.addEventListener("click", () => {
   homeMenu = !homeMenu;
-  if(homeMenu) {
-  msg.classList.remove("d-none");
-}else {
+  if (homeMenu) {
+    msg.classList.remove("d-none");
+  } else {
     msg.classList.add("d-none");
   }
 });
@@ -145,6 +158,3 @@ function closeMenu() {
   msg.classList.add("d-none");
   homeMenu = !homeMenu;
 }
-
-
-
