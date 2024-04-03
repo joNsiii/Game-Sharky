@@ -16,11 +16,18 @@ class MoveableObjects extends DrawableObject {
   damageToEnemies = 50;
 
   /**
+   * constructor
+   */
+  constructor() {
+
+  }
+
+  /**
    * If the boss is dead, the win sound will playing and the winning screen pop up
    */
   youWin() {
     if (this.endBossDead) {
-      world.audio.playSound('win');
+      world.audio.playSound("win");
       showWinScreen();
     }
   }
@@ -62,7 +69,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * Playing a animation if anyone is dead
-   * 
+   *
    * @param {array} arr - Array with images
    */
   isDead(arr) {
@@ -75,7 +82,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * Playing a animation one time
-   * 
+   *
    * @param {array} arr -  Array with images
    */
   playAnimationOnce(arr) {
@@ -96,7 +103,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * Playing the idle animation for sharky
-   * 
+   *
    * @param {array} arr - Array with images
    */
   idleAnimation(arr) {
@@ -116,7 +123,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * Checkinh how long the bubble is traveled
-   * 
+   *
    * @param {index} i - Index of the current bubble
    * @returns - boolean
    */
@@ -128,7 +135,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * compare if two objects colliding
-   * 
+   *
    * @param {object} o - which object is colliding
    * @returns boolean
    */
@@ -152,7 +159,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * compare if two objects colliding
-   * 
+   *
    * @param {object} o - which object are colliding
    * @returns boolean
    */
@@ -176,13 +183,13 @@ class MoveableObjects extends DrawableObject {
   /**
    * Playing a sound when a enemy is hit and based on which attack the enemy was hit
    * If the enemy is dead we are playing 'enemyDead'- sound
-   * 
+   *
    * @param {object} enemy - which enemy is hit
    * @param {index} i - which index the enemy have in the array
    */
   enemieHit(enemy, i) {
     if (enemy.enemieHealth > 1) {
-      world.audio.playSound('enemyHit');
+      world.audio.playSound("enemyHit");
     }
     if (this.name == "bubble") {
       this.damageBoost();
@@ -190,7 +197,7 @@ class MoveableObjects extends DrawableObject {
     }
     enemy.enemieHealth -= this.damageToEnemies;
     if (enemy.enemieHealth <= 0) {
-      world.audio.playSound('enemyDead');
+      world.audio.playSound("enemyDead");
       enemy.dead = true;
       this.deleteEnemieOnDeath(i);
     }
@@ -198,7 +205,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * Deleting a enemy from enemie-array
-   * 
+   *
    * @param {index} i - which index the enemy have
    */
   deleteEnemieOnDeath(i) {
@@ -209,7 +216,7 @@ class MoveableObjects extends DrawableObject {
 
   /**
    * Set a boolean if a enemy is hit
-   * 
+   *
    * @param {object} enemy - identify the enemy
    */
   enemieHitAnimation(enemy) {
@@ -223,8 +230,8 @@ class MoveableObjects extends DrawableObject {
   introduceBoss() {
     setInterval(() => {
       if (world.sharky.pos_x >= 2100 && !this.bossIsSpawned) {
-        world.audio.stopSound('bgMusic');
-        world.audio.playSound('bossMusic');
+        world.audio.stopSound("bgMusic");
+        world.audio.playSound("bossMusic");
         this.bossIsSpawned = true;
         this.spawnBoss();
       }
@@ -240,7 +247,7 @@ class MoveableObjects extends DrawableObject {
   }
 
   /**
-   * If sharky collected poisonbottle, he get a damageboost 
+   * If sharky collected poisonbottle, he get a damageboost
    */
   damageBoost() {
     if (world.posionBar.poisonBottles >= 1) {

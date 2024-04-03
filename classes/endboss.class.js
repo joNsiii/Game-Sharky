@@ -55,6 +55,9 @@ class Endboss extends MoveableObjects {
     "img/sharkie-images/2.Enemy/3 Final Enemy/Attack/6.png",
   ];
 
+  /**
+   * constructor
+   */
   constructor() {
     super().bossSpawn();
     this.loadImage("img/sharkie-images/2.Enemy/3 Final Enemy/1.Introduce/1.png");
@@ -80,8 +83,8 @@ class Endboss extends MoveableObjects {
    * Animation based on conditions
    */
   animation() {
-      setInterval(() => {
-        if (!this.isHit && !this.dead) {
+    setInterval(() => {
+      if (!this.isHit && !this.dead) {
         this.moveToSharky();
         this.attackSharky();
         this.floating();
@@ -99,15 +102,15 @@ class Endboss extends MoveableObjects {
    */
   bossIsDead() {
     this.enemieIsDead();
-        this.endBossDead = true;
-        world.audio.stopSound('bossMusic');
-        setTimeout(() => {
-          this.youWin();
-        }, 2000);
+    this.endBossDead = true;
+    world.audio.stopSound("bossMusic");
+    setTimeout(() => {
+      this.youWin();
+    }, 2000);
   }
 
   /**
-   * Idle animation for boss 
+   * Idle animation for boss
    */
   floating() {
     this.playAnimation(this.movementImages);
@@ -137,21 +140,21 @@ class Endboss extends MoveableObjects {
    * Playing attack animation if the boss is colliding with sharky
    */
   attackSharky() {
-    if(world.sharky.isColliding(this)) {
-     this.playAnimationOnce(this.ATTACK);
+    if (world.sharky.isColliding(this)) {
+      this.playAnimationOnce(this.ATTACK);
     }
-   }
+  }
 
-   /**
-    * Moving to sharky
-    */
+  /**
+   * Moving to sharky
+   */
   moveToSharky() {
-    let posY = world.sharky.pos_y - 200
+    let posY = world.sharky.pos_y - 200;
     if (world.sharky.bossIsSpawned) {
       if (this.pos_x < world.sharky.pos_x) {
         this.bossMovingRight();
       }
-      if (this.pos_y < world.sharky.pos_y -100) {
+      if (this.pos_y < world.sharky.pos_y - 100) {
         this.bossMovingDown();
       }
       if (this.pos_x > world.sharky.pos_x) {
@@ -192,5 +195,4 @@ class Endboss extends MoveableObjects {
   bossMovingDown() {
     this.pos_y += this.movingSpeed;
   }
-  
 }

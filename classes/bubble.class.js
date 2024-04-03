@@ -5,6 +5,9 @@ class Bubble extends MoveableObjects {
   initialPosition;
   initialDirection;
 
+  /**
+   * constructor
+   */
   constructor(x, y) {
     super().loadImage("img/sharkie-images/1.Sharkie/4.Attack/Bubble trap/Bubble.png");
     this.travel(x, y);
@@ -13,7 +16,7 @@ class Bubble extends MoveableObjects {
 
   /**
    * Set the position where the bubble is spawned
-   * 
+   *
    * @param {number} x - x position on canvas
    * @param {number} y - y position on canvas
    */
@@ -42,7 +45,7 @@ class Bubble extends MoveableObjects {
   }
 
   /**
-   * 
+   *
    * @param {number} x - x - position from bubble
    */
   bubbleStartPosition(x) {

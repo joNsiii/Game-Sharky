@@ -14,6 +14,9 @@ class World {
   gameover = false;
   gamePaused = false;
 
+  /**
+   * constructor
+   */
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d"); /* to redner something in canvas */
     this.canvas = canvas;

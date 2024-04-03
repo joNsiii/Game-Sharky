@@ -25,6 +25,9 @@ class JellyFish extends MoveableObjects {
     "img/sharkie-images/2.Enemy/2 Jelly fish/Súper dangerous/Pink 4.png",
   ];
 
+  /**
+   * constructor
+   */
   constructor() {
     super().loadImage("img/sharkie-images/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png");
     this.loadImages(this.movementImages);

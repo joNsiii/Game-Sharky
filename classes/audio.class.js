@@ -1,6 +1,9 @@
 class SoundManager {
-    muted = false;
+  muted = false;
 
+  /**
+   * constructor
+   */
   constructor() {
     this.bgmusic = new Audio("audio/bg-music.mp3");
     this.bossMusic = new Audio("audio/boss-music-bg.mp3");
@@ -34,7 +37,7 @@ class SoundManager {
 
   /**
    * playing a sound
-   * 
+   *
    * @param {string} sound - Name of the soundfile
    */
   playSound(sound) {
@@ -42,8 +45,8 @@ class SoundManager {
   }
 
   /**
-   * Playing a sound again if he is currently playing 
-   * 
+   * Playing a sound again if he is currently playing
+   *
    * @param {string} sound - Name of the soundfile
    */
   playCloneSound(sound) {
@@ -52,7 +55,7 @@ class SoundManager {
 
   /**
    * Stop playing a sound
-   * 
+   *
    * @param {string} sound - Name of the soundfile
    */
   stopSound(sound) {
@@ -61,7 +64,7 @@ class SoundManager {
 
   /**
    * Set the volume of a sound
-   * 
+   *
    * @param {string} sound - Name of the soundfile
    * @param {number} volume - Number bettwen 0 - 1
    */
@@ -85,7 +88,7 @@ class SoundManager {
   unmuteAllSounds() {
     this.allSounds.forEach((sound) => {
       sound.volume = 1;
-      this['bgmusic'].volume = 0.2;
+      this["bgmusic"].volume = 0.2;
     });
     this.muted = false;
   }

@@ -6,6 +6,9 @@ class Keyboard {
   spaceKey = false;
   keyF = false;
 
+  /**
+   * constructor
+   */
   constructor() {
     this;
     this.bindKeyBoardButtons();

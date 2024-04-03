@@ -122,6 +122,9 @@ class Sharky extends MoveableObjects {
     "img/sharkie-images/1.Sharkie/4.Attack/Bubble trap/For Whale/8.png",
   ];
 
+  /**
+   * constructor
+   */
   constructor() {
     super().loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
     this.loadImages(this.movementImages);
@@ -197,12 +200,11 @@ class Sharky extends MoveableObjects {
       showGameOverScreen();
       this.world.audio.stopSound("bgmusic");
       this.world.audio.playSound("gameOver");
-
     }, 3000);
   }
 
   /**
-   * CHecking bossspawn 
+   * CHecking bossspawn
    */
   bossComing() {
     if (this.pos_x == 2100 && !this.epicIntroduce) {
@@ -332,7 +334,7 @@ class Sharky extends MoveableObjects {
       this.attackAnimation = true;
       this.checkBubbleColor();
       setTimeout(() => {
-        this.world.audio.playSound('bubble');
+        this.world.audio.playSound("bubble");
         this.attackAnimation = false;
         this.spawnNewBubble();
         this.checkBubbleHit();
@@ -371,7 +373,7 @@ class Sharky extends MoveableObjects {
 
   /**
    * delete a bubble after reaching the max. travel distance (300px)
-   * 
+   *
    * @param {index} i - index of the current bubble
    */
   deleteBubbleafterMaxTravelDistance(i) {
@@ -431,7 +433,7 @@ class Sharky extends MoveableObjects {
 
   /**
    * If jellyfish was hit
-   * 
+   *
    * @returns end this function if a jellyfish was hit
    */
   jellyFishWasHit() {
@@ -459,16 +461,16 @@ class Sharky extends MoveableObjects {
   electroHitAnimation() {
     this.hitAnimation = true;
     this.playAnimation(this.ELECTRO_HIT);
-    this.world.audio.playSound('electricSound');
+    this.world.audio.playSound("electricSound");
   }
 
   /**
-   * End electrohit animation and sound 
+   * End electrohit animation and sound
    */
   endElectroHitAnimation() {
     this.hitAnimation = false;
-    this.world.audio.stopSound('electricSound');
-      this.loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
+    this.world.audio.stopSound("electricSound");
+    this.loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
   }
 
   /**
@@ -476,13 +478,13 @@ class Sharky extends MoveableObjects {
    */
   hit() {
     this.health -= 5;
-    this.world.audio.playSound('sharkyHit');
+    this.world.audio.playSound("sharkyHit");
     this.lastHit = new Date().getTime();
   }
 
   /**
    * true if the last hit is longer ago than 1 second / false if not
-   * 
+   *
    * @returns true or false
    */
   isHurt() {
@@ -495,10 +497,10 @@ class Sharky extends MoveableObjects {
    * Checking health from sharky
    */
   checkHealth() {
-      if (this.health <= 0) {
-        this.health = 0;
-        this.dead = true;
-      }
+    if (this.health <= 0) {
+      this.health = 0;
+      this.dead = true;
+    }
   }
 
   /**
