@@ -158,7 +158,10 @@ class Sharky extends MoveableObjects {
       if (!this.dead && this.isHurt()) {
         this.playAnimationOnce(this.IS_HIT);
       } else if (this.dead) {
-        this.sharkyIsDead();
+        setTimeout(() => {
+          this.isDead(this.DEAD_ANIMATION);
+        }, 1000);
+        this.gameOverScreen();
       }
     }, 1000 / 60);
     this.movementAnimation();
@@ -178,18 +181,13 @@ class Sharky extends MoveableObjects {
   /**
    * play dead animation for sharky and showing game over screen
    */
-  sharkyIsDead() {
-    this.DeadAnimationForSharky();
-    this.gameOverScreen();
-  }
+  sharkyIsDead() {}
 
   /**
    * Play dead animation for sharky with 1 second delay
    */
   DeadAnimationForSharky() {
-    setTimeout(() => {
-      this.isDead(this.DEAD_ANIMATION);
-    }, 1000);
+    
   }
 
   /**
@@ -239,11 +237,10 @@ class Sharky extends MoveableObjects {
             this.setVariables();
             this.resetTimer();
             this.playAnimation(this.movementImages);
-            this.world.audio.playSound('swim');
-            this.world.audio.setVolume('swim', 0.2);
-
+            this.world.audio.playSound("swim");
+            this.world.audio.setVolume("swim", 0.2);
           } else {
-            this.world.audio.stopSound('swim');
+            this.world.audio.stopSound("swim");
             this.sharkyIsMoving = false;
           }
         }
@@ -499,10 +496,13 @@ class Sharky extends MoveableObjects {
    * Checking health from sharky
    */
   checkHealth() {
-    if (this.health <= 0) {
-      this.health = 0;
-      this.dead = true;
-    }
+    setInterval(() => {
+      if (this.health <= 0) {
+        this.health = 0;
+        this.dead = true;
+        this.world.audio.stopSound("swim");
+      }
+    }, 500);
   }
 
   /**

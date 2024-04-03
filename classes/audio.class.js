@@ -55,7 +55,17 @@ class SoundManager {
    */
   playSound(sound) {
     this[sound].play();
-  }
+    if (sound === 'bgmusic') {
+        this.bgmusic.onended = () => {
+            this.bgmusic.play();
+        };
+    }
+    if (sound === 'gameOver') {
+        this.gameOver.onended = () => {
+            this.gameOver.volume = 0;
+        };
+    }
+}
 
   /**
    * Playing a sound again if he is currently playing
