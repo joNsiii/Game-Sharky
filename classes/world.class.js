@@ -59,7 +59,7 @@ class World {
    * Background music
    */
   backGroundMusic() {
-    this.audio.setVolume("bgmusic", 0.2);
+    this.audio.setVolume("bgmusic", 0.1);
     this.audio.playSound("bgmusic");
   }
 

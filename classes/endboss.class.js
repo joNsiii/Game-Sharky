@@ -103,7 +103,7 @@ class Endboss extends MoveableObjects {
   bossIsDead() {
     this.enemieIsDead();
     this.endBossDead = true;
-    world.audio.stopSound("bossMusic");
+    world.audio.stopSound('bossMusic');
     setTimeout(() => {
       this.youWin();
     }, 2000);

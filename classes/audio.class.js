@@ -1,5 +1,18 @@
 class SoundManager {
   muted = false;
+  bgmusic;
+  bossMusic;
+  bottle;
+  bubble;
+  coin;
+  swim;
+  hit;
+  win;
+  enemyHit;
+  enemyDead;
+  sharkyHit;
+  electricSound;
+  gameOver;
 
   /**
    * constructor
@@ -10,7 +23,7 @@ class SoundManager {
     this.bottle = new Audio("audio/bottle-collected.mp3");
     this.bubble = new Audio("audio/bubble-sound.mp3");
     this.coin = new Audio("audio/coin-collected.mp3");
-    this.swim = new Audio("audio/underwater-swim.mp3");
+    this.swim = new Audio("audio/sharky-swim.mp3");
     this.hit = new Audio("audio/hit.mp3");
     this.win = new Audio("audio/victory.mp3");
     this.enemyHit = new Audio("audio/enemy-hit.mp3");

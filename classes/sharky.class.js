@@ -239,9 +239,11 @@ class Sharky extends MoveableObjects {
             this.setVariables();
             this.resetTimer();
             this.playAnimation(this.movementImages);
-            this.world.audio.playSound("swim");
+            this.world.audio.playSound('swim');
+            this.world.audio.setVolume('swim', 0.2);
+
           } else {
-            this.world.audio.stopSound("swim");
+            this.world.audio.stopSound('swim');
             this.sharkyIsMoving = false;
           }
         }

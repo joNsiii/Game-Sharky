@@ -224,7 +224,7 @@ class MoveableObjects extends DrawableObject {
   introduceBoss() {
     setInterval(() => {
       if (world.sharky.pos_x >= 2100 && !this.bossIsSpawned) {
-        world.audio.stopSound("bgMusic");
+        world.audio.bgmusic.pause();
         world.audio.playSound("bossMusic");
         this.bossIsSpawned = true;
         this.spawnBoss();
