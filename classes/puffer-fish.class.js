@@ -1,5 +1,5 @@
 class PufferFish extends MoveableObjects {
-    pos_x = 700 + Math.random() * 1300;
+    pos_x = 400 + Math.random() * 1300;
     pos_y = Math.random() * 350;
     width = 80;
     height = 80;

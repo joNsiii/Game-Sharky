@@ -8,14 +8,52 @@ class Sharky extends MoveableObjects {
   animationPlayed = false;
   bubbleAnimation = false;
   attackAnimation = false;
-  stopMoving = false;
   epicIntroduce = false;
+  activeIdle = false;
+  sharkyIsMoving = false;
+  timer;
   offset = {
     top: 80,
     bottom: 120,
     left: 60,
     right: 120,
   };
+  IDLE = [
+    "img/sharkie-images/1.Sharkie/1.IDLE/1.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/2.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/3.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/4.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/5.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/6.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/7.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/8.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/9.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/10.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/11.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/12.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/13.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/14.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/15.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/16.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/17.png",
+    "img/sharkie-images/1.Sharkie/1.IDLE/18.png",
+  ];
+
+  LONGIDLE = [
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/i1.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I2.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I3.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I4.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I5.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I6.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I7.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I8.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I9.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I10.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I11.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I12.png",
+    "img/sharkie-images/1.Sharkie/2.Long_IDLE/I13.png",
+  ];
   movementImages = [
     "img/sharkie-images/1.Sharkie/3.Swim/1.png",
     "img/sharkie-images/1.Sharkie/3.Swim/2.png",
@@ -87,6 +125,7 @@ class Sharky extends MoveableObjects {
   constructor() {
     super().loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
     this.loadImages(this.movementImages);
+    this.loadImages(this.LONGIDLE);
     this.loadImages(this.DEAD_ANIMATION);
     this.loadImages(this.ELECTRO_HIT);
     this.loadImages(this.IS_HIT);
@@ -94,6 +133,7 @@ class Sharky extends MoveableObjects {
     this.loadImages(this.BUBBLETRAP_WHITE);
     this.loadImages(this.BUBBLETRAP_TOXIC);
     this.loadImages(this.BUBBLE);
+    this.loadImages(this.IDLE);
     this.checkHealth();
     this.animation();
     this.attack();
@@ -101,58 +141,96 @@ class Sharky extends MoveableObjects {
   }
 
   animation() {
+    this.sharkyIdle();
     setInterval(() => {
-      if (!this.dead) {
+      if (!this.dead && !this.isHurt() && this.activeIdle) {
+        this.idleAnimation(this.LONGIDLE);
+      }
+      if (!this.dead && !this.activeIdle) {
         this.moveSharky();
       }
       if (!this.dead && this.isHurt()) {
         this.playAnimationOnce(this.IS_HIT);
       } else if (this.dead) {
-        setTimeout(() => {
-          this.isDead(this.DEAD_ANIMATION);
-        }, 2000);
-        setTimeout(() => {
-          showGameOverScreen();
-        }, 4000);
+        this.sharkyIsDead();
       }
     }, 1000 / 60);
     this.movementAnimation();
   }
 
+  sharkyIdle() {
+    setInterval(() => {
+      if (!this.dead && !this.isHurt() && !this.activeIdle && !this.sharkyIsMoving && !this.attackAnimation) {
+        this.playAnimation(this.IDLE);
+      }
+    }, 150);
+  }
+
+  sharkyIsDead() {
+    this.DeadAnimationForSharky();
+    this.gameOverScreen();
+  }
+
+  DeadAnimationForSharky() {
+    setTimeout(() => {
+      this.isDead(this.DEAD_ANIMATION);
+    }, 1000);
+  }
+
+  gameOverScreen() {
+    setTimeout(() => {
+      showGameOverScreen();
+      world.level.audio[0].pause();
+    }, 3000);
+  }
+
   bossComing() {
     if (this.pos_x == 2100 && !this.epicIntroduce) {
       this.epicIntroduce = true;
-      let timer = setInterval(() => {
-        this.world.keyboard.leftKey = false;
-        this.world.keyboard.upKey = false;
-        this.world.keyboard.downKey = false;
-        this.world.keyboard.rightKey = false;
-      }, 1);
-      setTimeout(() => {
-        clearInterval(timer);
-      }, 3000);
+      this.disableKeyboardInput();
     }
+  }
+
+  disableKeyboardInput() {
+    let timer = setInterval(() => {
+      this.world.keyboard.leftKey = false;
+      this.world.keyboard.upKey = false;
+      this.world.keyboard.downKey = false;
+      this.world.keyboard.rightKey = false;
+    }, 50);
+    setTimeout(() => {
+      clearInterval(timer);
+    }, 3000);
   }
 
   movementAnimation() {
     setInterval(() => {
-      if (!this.stopMoving && !this.attackAnimation) {
+      if (!this.attackAnimation) {
         if (!this.dead && !this.isHurt() && !this.hitAnimation) {
           if (this.world.keyboard.leftKey || this.world.keyboard.upKey || this.world.keyboard.downKey || this.world.keyboard.rightKey) {
+            this.setVariables();
+            this.resetTimer();
             this.playAnimation(this.movementImages);
-            this.world.level.audio[5].play();
+            world.level.audio[5].play();
           } else {
             this.world.level.audio[5].pause();
+            this.sharkyIsMoving = false;
           }
         }
       }
     }, 50);
   }
 
+  setVariables() {
+    this.sharkyIsMoving = true;
+    this.activeIdle = false;
+    this.idleplayed = false;
+  }
+
   moveSharky() {
     this.bossComing();
-    // this.speedBoost();
-    if (!this.stopMoving && !this.attackAnimation) {
+    this.speedBoost();
+    if (!this.attackAnimation) {
       if (this.world.keyboard.leftKey || this.world.keyboard.upKey || this.world.keyboard.downKey || this.world.keyboard.rightKey) {
         if (this.world.keyboard.leftKey && this.pos_x > 0) {
           this.moveLeft();
@@ -198,16 +276,6 @@ class Sharky extends MoveableObjects {
     }, 50);
   }
 
-  muteAllPageSounds() {
-    if (this.world.keyboard.spaceKey) {
-      let audios = document.getElementsByTagName("audio");
-
-      for (let i = 0; i < audios.length; i++) {
-        audios[i].muted = true;
-      }
-    }
-  }
-
   bubbleAttack() {
     if (this.world.keyboard.keyF && !this.isAnimated && !this.isHurt() && !this.hitAnimation && !this.bubbleAnimation) {
       this.bubbleAnimation = true;
@@ -216,11 +284,15 @@ class Sharky extends MoveableObjects {
       setTimeout(() => {
         this.world.level.audio[3].play();
         this.attackAnimation = false;
-        let bubble = new Bubble(this.pos_x, this.pos_y);
-        this.world.bubble.push(bubble);
+        this.spawnNewBubble();
         this.checkBubbleHit();
       }, 800);
     }
+  }
+
+  spawnNewBubble() {
+    let bubble = new Bubble(this.pos_x, this.pos_y);
+    this.world.bubble.push(bubble);
   }
 
   checkBubbleHit() {
@@ -234,12 +306,16 @@ class Sharky extends MoveableObjects {
             bubble.enemieHit(enemy, j);
           }
           if (this.bubbleTravelDistance(i)) {
-            world.bubble.splice(i, 1);
-            this.bubbleAnimation = false;
+            this.deleteBubbleafterMaxTravelDistance(i);
           }
         });
       });
     }, 100);
+  }
+
+  deleteBubbleafterMaxTravelDistance(i) {
+    world.bubble.splice(i, 1);
+    this.bubbleAnimation = false;
   }
 
   checkBubbleColor() {
@@ -252,8 +328,7 @@ class Sharky extends MoveableObjects {
 
   finSlap() {
     if (this.world.keyboard.spaceKey && !this.isAnimated) {
-      this.attackAnimation = true;
-      this.playAnimationOnce(this.FIN_SLAP);
+      this.finSlapAnimation();
       setTimeout(() => {
         this.checkFinAttack();
       }, 200);
@@ -263,14 +338,17 @@ class Sharky extends MoveableObjects {
     }
   }
 
+  finSlapAnimation() {
+    this.attackAnimation = true;
+    this.playAnimationOnce(this.FIN_SLAP);
+  }
+
   checkFinAttack() {
     world.level.enemies.forEach((enemy, index) => {
       if (this.isAttacking(enemy)) {
         this.enemieHitAnimation(enemy);
         if (enemy.name == "Jellyfish") {
-          this.electroHit();
-          this.health -= 20;
-          return;
+          this.jellyFishWasHit();
         }
         this.enemieHit(enemy, index);
         return;
@@ -278,17 +356,37 @@ class Sharky extends MoveableObjects {
     });
   }
 
+  jellyFishWasHit() {
+    this.electroHit();
+    this.health -= 20;
+    return;
+  }
+
   electroHit() {
-    this.shortDurationAnimation(this.ELECTRO_HIT);
-    this.world.level.audio[10].play();
+    let timer = setInterval(() => {
+      this.electroHitAnimation();
+    }, 100);
     setTimeout(() => {
-      this.loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
+      clearInterval(timer);
+      this.endElectroHitAnimation();
     }, 2000);
+  }
+
+  electroHitAnimation() {
+    this.hitAnimation = true;
+    this.playAnimation(this.ELECTRO_HIT);
+    world.level.audio[11].play();
+  }
+
+  endElectroHitAnimation() {
+    this.hitAnimation = false;
+      world.level.audio[11].pause();
+      this.loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
   }
 
   hit() {
     this.health -= 5;
-    this.world.level.audio[10].play();
+    world.level.audio[10].play();
     this.lastHit = new Date().getTime();
   }
 
@@ -304,12 +402,19 @@ class Sharky extends MoveableObjects {
         this.health = 0;
         this.dead = true;
       }
-    }, 1000 / 60);
+    }, 500);
   }
 
   speedBoost() {
-    if (world.coinBar.coins == 1) {
+    if (world.coinBar.coins == 15) {
       this.sharkySpeed = 7;
     }
+  }
+
+  resetTimer() {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.activeIdle = true;
+    }, 15000);
   }
 }

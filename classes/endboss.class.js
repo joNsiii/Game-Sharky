@@ -63,6 +63,7 @@ class Endboss extends MoveableObjects {
     this.loadImages(this.ENEMY_HIT);
     this.loadImages(this.INTRODUCING);
     this.loadImages(this.ATTACK);
+    this.enemieHealth = 600;
   }
 
   bossSpawn() {
@@ -82,14 +83,18 @@ class Endboss extends MoveableObjects {
         this.hitted();
       }
       if (this.dead) {
-        this.enemieIsDead();
+        this.bossIsDead();
+      }
+    }, 100);
+  }
+
+  bossIsDead() {
+    this.enemieIsDead();
         this.endBossDead = true;
         world.level.audio[1].pause();
         setTimeout(() => {
           this.youWin();
         }, 2000);
-      }
-    }, 100);
   }
 
   floating() {
@@ -120,21 +125,36 @@ class Endboss extends MoveableObjects {
     let posY = world.sharky.pos_y - 200
     if (world.sharky.bossIsSpawned) {
       if (this.pos_x < world.sharky.pos_x) {
-        this.otherDirection = true;
-        this.pos_x += this.movingSpeed;
+        this.bossMovingRight();
       }
       if (this.pos_y < world.sharky.pos_y -100) {
-        this.pos_y += this.movingSpeed;
+        this.bossMovingDown();
       }
       if (this.pos_x > world.sharky.pos_x) {
-        this.otherDirection = false;
-        this.pos_x -= this.movingSpeed;
+        this.bossMovingLeft();
       }
       if (Math.abs(this.pos_y > posY)) {
-        this.pos_y -= this.movingSpeed;
+        this.bossMovingUp();
       }
     }
   }
 
+  bossMovingRight() {
+    this.otherDirection = true;
+    this.pos_x += this.movingSpeed;
+  }
+
+  bossMovingLeft() {
+    this.otherDirection = false;
+    this.pos_x -= this.movingSpeed;
+  }
+
+  bossMovingUp() {
+    this.pos_y -= this.movingSpeed;
+  }
+
+  bossMovingDown() {
+    this.pos_y += this.movingSpeed;
+  }
   
 }

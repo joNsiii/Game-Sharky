@@ -12,6 +12,7 @@ class MoveableObjects extends DrawableObject {
   hitAnimation = false;
   isHit = false;
   bossIsSpawned = false;
+  idleplayed = false;
   damageToEnemies = 50;
 
   youWin() {
@@ -71,15 +72,19 @@ class MoveableObjects extends DrawableObject {
     }
   }
 
-  shortDurationAnimation(arr) {
-    let timer = setInterval(() => {
-      this.hitAnimation = true;
-      this.playAnimation(arr);
-    }, 100);
-    setTimeout(() => {
-      clearInterval(timer);
-      this.hitAnimation = false;
-    }, 2000);
+  idleAnimation(arr) {
+    if (!this.idleplayed) {
+      let currentFrame = 0;
+      let animationInterval = setInterval(() => {
+        let path = arr[currentFrame];
+        this.img = this.imageCache[path];
+        currentFrame++;
+        if (currentFrame == arr.length) {
+          clearInterval(animationInterval);
+        }
+        this.idleplayed = true;
+      }, 100);
+    }
   }
 
   bubbleTravelDistance(i) {

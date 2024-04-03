@@ -23,6 +23,7 @@ function startGame() {
   gameRunning = true;
   checkWindowSize();
   displayInGameMenuButton();
+  initLevel();
   init();
 }
 
@@ -59,7 +60,7 @@ function showWinScreen() {
 }
 
 function checkWindowSize() {
-  if (window.innerWidth < 900 || window.innerHeight < 480) {
+  if (window.innerWidth < 900 || window.innerHeight < 380) {
     displayMobileButton();
   } else {
     hideMobileButton();
@@ -110,14 +111,18 @@ function hideInGameMenuButton() {
 }
 
 fsBtn.addEventListener("click", () => {
+  switchImageForFullscreen();
+  switchFullScreen();
+});
+
+function switchImageForFullscreen() {
   let img = document.getElementById("fs-img");
   if (img.src.includes("enter-fs.png")) {
     img.src = "img/sharkie-images/exit-fs.png";
   } else {
     img.src = "img/sharkie-images/enter-fs.png";
   }
-  switchFullScreen();
-});
+}
 
 function switchFullScreen() {
   let canvasFullScreen = document.getElementById("fullscreen-div");
@@ -132,14 +137,18 @@ function switchFullScreen() {
 }
 
 muteBtn.addEventListener("click", () => {
+  switchImageForMuteBtn();
+  world.muteSound();
+});
+
+function switchImageForMuteBtn() {
   let img = document.getElementById("mute-img");
   if (img.src.includes("mute-on.png")) {
     img.src = "img/sharkie-images/mute-off.png";
   } else {
     img.src = "img/sharkie-images/mute-on.png";
   }
-  world.muteSound();
-});
+}
 
 homeBtn.addEventListener("click", () => {
   homeMenu = !homeMenu;
@@ -158,3 +167,4 @@ function closeMenu() {
   msg.classList.add("d-none");
   homeMenu = !homeMenu;
 }
+

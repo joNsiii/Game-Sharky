@@ -14,21 +14,18 @@ class Keyboard {
 
   bindKeyBoardButtons() {
     window.addEventListener("keydown", (e) => {
-      if (!world.gamePaused) {
-        this;
-        if (e.code == "ArrowLeft") {
-          this.leftKey = true;
-        } else if (e.code == "ArrowRight") {
-          this.rightKey = true;
-        } else if (e.code == "ArrowUp") {
-          this.upKey = true;
-        } else if (e.code == "ArrowDown") {
-          this.downKey = true;
-        } else if (e.code == "Space") {
-          this.spaceKey = true;
-        } else if (e.code == "KeyF") {
-          this.keyF = true;
-        }
+      if (e.code == "ArrowLeft") {
+        this.leftKey = true;
+      } else if (e.code == "ArrowRight") {
+        this.rightKey = true;
+      } else if (e.code == "ArrowUp") {
+        this.upKey = true;
+      } else if (e.code == "ArrowDown") {
+        this.downKey = true;
+      } else if (e.code == "Space") {
+        this.spaceKey = true;
+      } else if (e.code == "KeyD") {
+        this.keyF = true;
       }
     });
 
@@ -48,7 +45,7 @@ class Keyboard {
       if (e.code == "Space") {
         this.spaceKey = false;
       }
-      if (e.code == "KeyF") {
+      if (e.code == "KeyD") {
         this.keyF = false;
       }
     });

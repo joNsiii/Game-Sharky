@@ -60,16 +60,29 @@ class World {
         if (enemy.dead || this.sharky.dead) {
           return;
         } else if (this.sharky.isColliding(enemy)) {
-          if (enemy.name == "Jellyfish") {
-            this.sharky.electroHit();
-            this.sharky.enemieHitAnimation(enemy);
-            this.sharky.health -= 20;
-          } else {
-            this.sharky.hit();
-          }
+         this.sharkyGetHit(enemy);
         }
       });
     }, 200);
+    this.checkCoinCollected();
+    this.checkPoisonBottleCollected();
+  }
+
+  sharkyGetHit(enemy) {
+    if (enemy.name == "Jellyfish") {
+      this.sharkyGetHitByJellyFish(enemy);
+    } else {
+      this.sharky.hit();
+    }
+  }
+
+  sharkyGetHitByJellyFish(enemy) {
+    this.sharky.electroHit();
+    this.sharky.enemieHitAnimation(enemy);
+    this.sharky.health -= 20;
+  }
+
+  checkCoinCollected() {
     setInterval(() => {
       this.level.coin.forEach((coin, index) => {
         if (this.sharky.isColliding(coin)) {
@@ -79,6 +92,9 @@ class World {
         }
       });
     }, 100);
+  }
+
+  checkPoisonBottleCollected() {
     setInterval(() => {
       this.level.poisonBottle.forEach((poisonBottle, index) => {
         if (this.sharky.isColliding(poisonBottle)) {
@@ -140,7 +156,7 @@ class World {
 
   muteSound() {
     this.soundMuted = !this.soundMuted;
-    world.level.audio.forEach((sound) => {
+    this.level.audio.forEach((sound) => {
       if (this.soundMuted) {
         sound.muted = true;
       } else {
