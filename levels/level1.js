@@ -1,5 +1,9 @@
 let level1;
 
+
+/**
+ * Initalizing level 1
+ */
 function initLevel() {
   level1 = new Level(
     [new PufferFish(), new PufferFish(), new PufferFish(), new PufferFish(), new PufferFish(), new JellyFish(), new JellyFish(), new JellyFish(), new JellyFish(), new JellyFish()],

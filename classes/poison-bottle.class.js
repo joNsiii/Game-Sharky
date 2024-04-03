@@ -20,6 +20,9 @@ class PoisonBottle extends DrawableObject {
         this.animatedPoisonBottles();
     }
 
+    /**
+     * Playing animation for poisonbottle
+     */
     animatedPoisonBottles() {
         setInterval(() => {
             this.playAnimation(this.POISON_BOTTLES);

@@ -12,6 +12,9 @@ class Keyboard {
     this.bindTouchButtons();
   }
 
+  /**
+   * Set a key true if we press the specfic key and to false if we dont press anymore
+   */
   bindKeyBoardButtons() {
     window.addEventListener("keydown", (e) => {
       if (e.code == "ArrowLeft") {
@@ -51,6 +54,9 @@ class Keyboard {
     });
   }
 
+  /**
+   * set key to true for if we touch a mobileversion button and to false if we dont touch the key
+   */
   bindTouchButtons() {
     document.getElementById("arrow-left").addEventListener("touchstart", (e) => {
       e.preventDefault();

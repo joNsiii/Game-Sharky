@@ -33,6 +33,9 @@ class PufferFish extends MoveableObjects {
 
     }
 
+    /**
+     * Which animation is play based on conditions
+     */
     animation() {
         setInterval(() => {
             if (!this.isHit && !this.dead) {
@@ -46,6 +49,9 @@ class PufferFish extends MoveableObjects {
         }, 200);
     }
 
+    /**
+     * Movement direction for enemys
+     */
     movement() {
         if (!this.dead) {
             this.moveUpAndDown();
@@ -53,10 +59,16 @@ class PufferFish extends MoveableObjects {
         }
     }
 
+    /**
+     * Animation for swimming
+     */
     normalSwim() {
         this.playAnimation(this.movementImages);
     }
 
+    /**
+     * Animation for aggressive swimming
+     */
     aggroSwim() {
         this.playAnimation(this.ENEMY_HIT);
         setTimeout(() => {
@@ -64,6 +76,9 @@ class PufferFish extends MoveableObjects {
         }, 2000);
     }
 
+    /**
+     * Animation if a enemy is dead and let him sinking to the ground
+     */
     enemieIsDead() {
         setInterval(() => {
             this.playAnimation(this.DEAD_ANIMATION);

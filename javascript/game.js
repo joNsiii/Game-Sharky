@@ -11,11 +11,17 @@ let muteBtn = document.getElementById("mute-btn");
 let fsBtn = document.getElementById("fullscreen-btn");
 let homeBtn = document.getElementById("home-btn");
 
+/**
+ * Create a new class(World) in canvas
+ */
 function init() {
   canvas = document.getElementById("canvas");
   world = new World(canvas, keyboard);
 }
 
+/**
+ * Start the game 
+ */
 function startGame() {
   document.getElementById("main-container").classList.add("d-none");
   document.getElementById("main-menu").classList.add("d-none");
@@ -27,16 +33,25 @@ function startGame() {
   init();
 }
 
+/**
+ * Open controlmenu in mainmenu
+ */
 function openControlMenu() {
   document.getElementById("main-menu").classList.add("d-none");
   document.getElementById("control-menu").classList.remove("d-none");
 }
 
+/**
+ * Close controlmenu
+ */
 function backToMainMenu() {
   document.getElementById("main-menu").classList.remove("d-none");
   document.getElementById("control-menu").classList.add("d-none");
 }
 
+/**
+ * Show the gameoverscreen after losing the game
+ */
 function showGameOverScreen() {
   document.getElementById("end-screen").classList.remove("d-none");
   document.getElementById("main-container").classList.remove("d-none");
@@ -46,10 +61,16 @@ function showGameOverScreen() {
   hideInGameMenuButton();
 }
 
+/**
+ * reload the entire page
+ */
 function tryAgain() {
   window.location.reload();
 }
 
+/**
+ * Show the winning screen after complete a level
+ */
 function showWinScreen() {
   document.getElementById("canvas").classList.add("d-none");
   document.getElementById("end-screen").classList.remove("d-none");
@@ -59,6 +80,9 @@ function showWinScreen() {
   hideInGameMenuButton();
 }
 
+/**
+ * Checking the size of the window
+ */
 function checkWindowSize() {
   if (window.innerWidth < 900 || window.innerHeight < 380) {
     displayMobileButton();
@@ -67,6 +91,9 @@ function checkWindowSize() {
   }
 }
 
+/**
+ * Show a message on load if the window is too small
+ */
 window.addEventListener("load", function () {
   if (window.innerWidth < 720 || window.innerHeight < 380) {
     document.getElementById("turn-device-message").style.display = "block";
@@ -74,6 +101,9 @@ window.addEventListener("load", function () {
   }
 });
 
+/**
+ * show a message on resize if the window is too small
+ */
 window.addEventListener("resize", function () {
   if ((gameRunning && window.innerWidth < 900) || window.innerHeight < 480) {
     displayMobileButton();
@@ -90,31 +120,49 @@ window.addEventListener("resize", function () {
   }
 });
 
+/**
+ * Display mobile button if the game is running
+ */
 function displayMobileButton() {
   if (gameRunning) {
     document.getElementById("control-btn").style.display = "block";
   }
 }
 
+/**
+ * Hide mobile button
+ */
 function hideMobileButton() {
   document.getElementById("control-btn").style.display = "none";
 }
 
+/**
+ * Display ingamemenu button if the game is running
+ */
 function displayInGameMenuButton() {
   if (gameRunning) {
     document.getElementById("ingame-menu-btn").style.display = "block";
   }
 }
 
+/**
+ * Hide ingamemenu button
+ */
 function hideInGameMenuButton() {
   document.getElementById("ingame-menu-btn").style.display = "none";
 }
 
+/**
+ * Eventlistener for fullscreen button
+ */
 fsBtn.addEventListener("click", () => {
   switchImageForFullscreen();
   switchFullScreen();
 });
 
+/**
+ * switching images for fullscreenbutton
+ */
 function switchImageForFullscreen() {
   let img = document.getElementById("fs-img");
   if (img.src.includes("enter-fs.png")) {
@@ -124,6 +172,9 @@ function switchImageForFullscreen() {
   }
 }
 
+/**
+ * Toogle between fullscreen and window mode
+ */
 function switchFullScreen() {
   let canvasFullScreen = document.getElementById("fullscreen-div");
   world.fullScreen = !world.fullScreen;
@@ -136,11 +187,21 @@ function switchFullScreen() {
   }
 }
 
+/**
+ * Eventlistener for mute button
+ */
 muteBtn.addEventListener("click", () => {
   switchImageForMuteBtn();
-  world.muteSound();
+  if(!world.audio.muted) {
+    world.audio.muteAllSounds();
+  }else {
+    world.audio.unmuteAllSounds();
+  }
 });
 
+/**
+ * switching images from mute button
+ */
 function switchImageForMuteBtn() {
   let img = document.getElementById("mute-img");
   if (img.src.includes("mute-on.png")) {
@@ -150,6 +211,9 @@ function switchImageForMuteBtn() {
   }
 }
 
+/**
+ * Eventlistener for mute button
+ */
 homeBtn.addEventListener("click", () => {
   homeMenu = !homeMenu;
   if (homeMenu) {
@@ -159,10 +223,16 @@ homeBtn.addEventListener("click", () => {
   }
 });
 
+/**
+ * reload page to reset the game
+ */
 function backToMenu() {
   window.location.reload();
 }
 
+/**
+ * Close homemenu
+ */
 function closeMenu() {
   msg.classList.add("d-none");
   homeMenu = !homeMenu;

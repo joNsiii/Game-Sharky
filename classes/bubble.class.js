@@ -11,6 +11,12 @@ class Bubble extends MoveableObjects {
     this.bubbleColor();
   }
 
+  /**
+   * Set the position where the bubble is spawned
+   * 
+   * @param {number} x - x position on canvas
+   * @param {number} y - y position on canvas
+   */
   travel(x, y) {
     this.pos_x = x;
     this.pos_y = y + 100;
@@ -24,6 +30,9 @@ class Bubble extends MoveableObjects {
     }, 50);
   }
 
+  /**
+   * CHecking in which direction the bubble need to travel
+   */
   checkBubbleTravelDirection() {
     if (!this.initialDirection) {
       this.pos_x += 5;
@@ -32,6 +41,10 @@ class Bubble extends MoveableObjects {
     }
   }
 
+  /**
+   * 
+   * @param {number} x - x - position from bubble
+   */
   bubbleStartPosition(x) {
     if (!this.initialDirection) {
       this.pos_x = x + 145;
@@ -41,6 +54,9 @@ class Bubble extends MoveableObjects {
     }
   }
 
+  /**
+   * Which color the bubble have based if a poisonbotttle is collected
+   */
   bubbleColor() {
     if (world.posionBar.poisonBottles >= 1) {
       this.loadImage("img/sharkie-images/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png");

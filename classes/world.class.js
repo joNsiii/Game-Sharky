@@ -4,12 +4,12 @@ class World {
   healthBar = new Healthbar();
   coinBar = new CoinBar();
   posionBar = new PosionBar();
+  audio = new SoundManager();
   bubble = [];
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
-  soundMuted = false;
   fullScreen = false;
   gameover = false;
   gamePaused = false;
@@ -24,6 +24,9 @@ class World {
     this.checkCollision();
   }
 
+  /**
+   * Draw everthing on canvas
+   */
   draw() {
     if (!this.gamePaused) {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -42,25 +45,31 @@ class World {
     }
   }
 
+  /**
+   * Set a 'world' - variable to sharky
+   */
   setWorld() {
     this.sharky.world = this;
   }
 
+  /**
+   * Background music
+   */
   backGroundMusic() {
-    this.level.audio[0].volume = 0.1;
-    this.level.audio[0].play();
-    this.level.audio[0].onended = function () {
-      this.play();
-    };
+    this.audio.setVolume("bgmusic", 0.2);
+    this.audio.playSound("bgmusic");
   }
 
+  /**
+   * Checking collisions between sharky and everything on the canvas
+   */
   checkCollision() {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (enemy.dead || this.sharky.dead) {
           return;
         } else if (this.sharky.isColliding(enemy)) {
-         this.sharkyGetHit(enemy);
+          this.sharkyGetHit(enemy);
         }
       });
     }, 200);
@@ -68,6 +77,11 @@ class World {
     this.checkPoisonBottleCollected();
   }
 
+  /**
+   * If sharky get a hit from an enemy
+   *
+   * @param {object} enemy - each enemy
+   */
   sharkyGetHit(enemy) {
     if (enemy.name == "Jellyfish") {
       this.sharkyGetHitByJellyFish(enemy);
@@ -76,12 +90,20 @@ class World {
     }
   }
 
+  /**
+   * If sharky get a hit from jellyfish
+   *
+   * @param {object} enemy - each enemy
+   */
   sharkyGetHitByJellyFish(enemy) {
     this.sharky.electroHit();
     this.sharky.enemieHitAnimation(enemy);
     this.sharky.health -= 20;
   }
 
+  /**
+   * Checking if sharky collecting a coin
+   */
   checkCoinCollected() {
     setInterval(() => {
       this.level.coin.forEach((coin, index) => {
@@ -94,6 +116,9 @@ class World {
     }, 100);
   }
 
+  /**
+   * Checking if sharky collecting a poisonbottle
+   */
   checkPoisonBottleCollected() {
     setInterval(() => {
       this.level.poisonBottle.forEach((poisonBottle, index) => {
@@ -106,6 +131,9 @@ class World {
     }, 100);
   }
 
+  /**
+   * How the background is draw in the canvas
+   */
   addBackgroundToCanvas() {
     for (let x = this.camera_x; x < this.canvas.width * 6; x += this.level.backgrounds.width) {
       this.ctx.drawImage(this.level.backgrounds.img, x, 0, this.level.backgrounds.width, this.level.backgrounds.height);
@@ -114,6 +142,11 @@ class World {
     }
   }
 
+  /**
+   *Add a object to canvas
+   *
+   * @param {object} object - which object is drawing into canvas
+   */
   addToCanvas(object) {
     if (object.otherDirection) {
       this.turnObject(object);
@@ -125,12 +158,22 @@ class World {
     }
   }
 
+  /**
+   * Add object to canvas from array
+   *
+   * @param {object} object - which object is drawing into canvas
+   */
   addObjectsToCanvas(object) {
     object.forEach((o) => {
       this.addToCanvas(o);
     });
   }
 
+  /**
+   * Turn a object on canvas
+   *
+   * @param {object} object - which object
+   */
   turnObject(object) {
     this.ctx.save();
     this.ctx.translate(object.width, 0);
@@ -138,30 +181,24 @@ class World {
     object.pos_x = object.pos_x * -1;
   }
 
+  /**
+   * Turn object back
+   *
+   * @param {object} object - which object
+   */
   turnObjectBack(object) {
     object.pos_x = object.pos_x * -1;
     this.ctx.restore();
   }
 
+  /**
+   * execute the draw function in a loop
+   */
   reload() {
     // Draw() wird immer wieder aufgerufen. 'this' funkioniert in der Funktion nicht, deshalb neue Variable für 'this'.
-    if (!this.gameover || !this.gamePaused) {
-      let self = this;
-      requestAnimationFrame(function () {
-        self.draw();
-      });
-    }
-    return;
-  }
-
-  muteSound() {
-    this.soundMuted = !this.soundMuted;
-    this.level.audio.forEach((sound) => {
-      if (this.soundMuted) {
-        sound.muted = true;
-      } else {
-        sound.muted = false;
-      }
+    let self = this;
+    requestAnimationFrame(function () {
+      self.draw();
     });
   }
 }

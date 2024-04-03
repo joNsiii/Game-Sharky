@@ -140,6 +140,9 @@ class Sharky extends MoveableObjects {
     this.introduceBoss();
   }
 
+  /**
+   * Checking which animation need to be played for sharky
+   */
   animation() {
     this.sharkyIdle();
     setInterval(() => {
@@ -158,6 +161,9 @@ class Sharky extends MoveableObjects {
     this.movementAnimation();
   }
 
+  /**
+   * Play idleanimation for sharky
+   */
   sharkyIdle() {
     setInterval(() => {
       if (!this.dead && !this.isHurt() && !this.activeIdle && !this.sharkyIsMoving && !this.attackAnimation) {
@@ -166,24 +172,38 @@ class Sharky extends MoveableObjects {
     }, 150);
   }
 
+  /**
+   * play dead animation for sharky and showing game over screen
+   */
   sharkyIsDead() {
     this.DeadAnimationForSharky();
     this.gameOverScreen();
   }
 
+  /**
+   * Play dead animation for sharky with 1 second delay
+   */
   DeadAnimationForSharky() {
     setTimeout(() => {
       this.isDead(this.DEAD_ANIMATION);
     }, 1000);
   }
 
+  /**
+   * Shown game over screen with 3 seconds delay and switch music
+   */
   gameOverScreen() {
     setTimeout(() => {
       showGameOverScreen();
-      world.level.audio[0].pause();
+      this.world.audio.stopSound("bgmusic");
+      this.world.audio.playSound("gameOver");
+
     }, 3000);
   }
 
+  /**
+   * CHecking bossspawn 
+   */
   bossComing() {
     if (this.pos_x == 2100 && !this.epicIntroduce) {
       this.epicIntroduce = true;
@@ -191,6 +211,9 @@ class Sharky extends MoveableObjects {
     }
   }
 
+  /**
+   * Disable keyinput for a short duration
+   */
   disableKeyboardInput() {
     let timer = setInterval(() => {
       this.world.keyboard.leftKey = false;
@@ -203,6 +226,9 @@ class Sharky extends MoveableObjects {
     }, 3000);
   }
 
+  /**
+   * Play a movement animation and sound if a key is pressed
+   */
   movementAnimation() {
     setInterval(() => {
       if (!this.attackAnimation) {
@@ -211,9 +237,9 @@ class Sharky extends MoveableObjects {
             this.setVariables();
             this.resetTimer();
             this.playAnimation(this.movementImages);
-            world.level.audio[5].play();
+            this.world.audio.playSound("swim");
           } else {
-            this.world.level.audio[5].pause();
+            this.world.audio.stopSound("swim");
             this.sharkyIsMoving = false;
           }
         }
@@ -221,12 +247,18 @@ class Sharky extends MoveableObjects {
     }, 50);
   }
 
+  /**
+   * booleans for some conditions
+   */
   setVariables() {
     this.sharkyIsMoving = true;
     this.activeIdle = false;
     this.idleplayed = false;
   }
 
+  /**
+   * Move sharky on keypress
+   */
   moveSharky() {
     this.bossComing();
     this.speedBoost();
@@ -251,24 +283,39 @@ class Sharky extends MoveableObjects {
     }
   }
 
+  /**
+   * Move sharky to the left
+   */
   moveLeft() {
     this.pos_x -= this.sharkySpeed;
     this.otherDirection = true;
   }
 
+  /**
+   * Move sharky to the right
+   */
   moveRight() {
     this.pos_x += this.sharkySpeed;
     this.otherDirection = false;
   }
 
+  /**
+   * Move sharky up
+   */
   moveUp() {
     this.pos_y -= this.sharkySpeed;
   }
 
+  /**
+   * Move sharky down
+   */
   moveDown() {
     this.pos_y += this.sharkySpeed;
   }
 
+  /**
+   * Let sharky attack
+   */
   attack() {
     setInterval(() => {
       this.finSlap();
@@ -276,13 +323,16 @@ class Sharky extends MoveableObjects {
     }, 50);
   }
 
+  /**
+   * Let sharky attack with a bubble on key press and playing s bubble sound
+   */
   bubbleAttack() {
     if (this.world.keyboard.keyF && !this.isAnimated && !this.isHurt() && !this.hitAnimation && !this.bubbleAnimation) {
       this.bubbleAnimation = true;
       this.attackAnimation = true;
       this.checkBubbleColor();
       setTimeout(() => {
-        this.world.level.audio[3].play();
+        this.world.audio.playSound('bubble');
         this.attackAnimation = false;
         this.spawnNewBubble();
         this.checkBubbleHit();
@@ -290,11 +340,17 @@ class Sharky extends MoveableObjects {
     }
   }
 
+  /**
+   * Add a new Bubble to bubble-array
+   */
   spawnNewBubble() {
     let bubble = new Bubble(this.pos_x, this.pos_y);
     this.world.bubble.push(bubble);
   }
 
+  /**
+   * Checking if the bubble is hitting an enemy
+   */
   checkBubbleHit() {
     setInterval(() => {
       this.world.bubble.forEach((bubble, i) => {
@@ -313,11 +369,19 @@ class Sharky extends MoveableObjects {
     }, 100);
   }
 
+  /**
+   * delete a bubble after reaching the max. travel distance (300px)
+   * 
+   * @param {index} i - index of the current bubble
+   */
   deleteBubbleafterMaxTravelDistance(i) {
     world.bubble.splice(i, 1);
     this.bubbleAnimation = false;
   }
 
+  /**
+   * Checking bubble color based on how many poison bottle are collected
+   */
   checkBubbleColor() {
     if (world.posionBar.poisonBottles >= 1) {
       this.playAnimationOnce(this.BUBBLETRAP_TOXIC);
@@ -326,6 +390,9 @@ class Sharky extends MoveableObjects {
     }
   }
 
+  /**
+   * Attack with a finslap on key press
+   */
   finSlap() {
     if (this.world.keyboard.spaceKey && !this.isAnimated) {
       this.finSlapAnimation();
@@ -338,11 +405,17 @@ class Sharky extends MoveableObjects {
     }
   }
 
+  /**
+   * Playing finslap animation
+   */
   finSlapAnimation() {
     this.attackAnimation = true;
     this.playAnimationOnce(this.FIN_SLAP);
   }
 
+  /**
+   * Checking if the finslap hit an enemy and which type of enemy
+   */
   checkFinAttack() {
     world.level.enemies.forEach((enemy, index) => {
       if (this.isAttacking(enemy)) {
@@ -356,12 +429,20 @@ class Sharky extends MoveableObjects {
     });
   }
 
+  /**
+   * If jellyfish was hit
+   * 
+   * @returns end this function if a jellyfish was hit
+   */
   jellyFishWasHit() {
     this.electroHit();
     this.health -= 20;
     return;
   }
 
+  /**
+   * Interval for electroanimation
+   */
   electroHit() {
     let timer = setInterval(() => {
       this.electroHitAnimation();
@@ -372,45 +453,66 @@ class Sharky extends MoveableObjects {
     }, 2000);
   }
 
+  /**
+   * Playing electrohit animation with sound
+   */
   electroHitAnimation() {
     this.hitAnimation = true;
     this.playAnimation(this.ELECTRO_HIT);
-    world.level.audio[11].play();
+    this.world.audio.playSound('electricSound');
   }
 
+  /**
+   * End electrohit animation and sound 
+   */
   endElectroHitAnimation() {
     this.hitAnimation = false;
-      world.level.audio[11].pause();
+    this.world.audio.stopSound('electricSound');
       this.loadImage("img/sharkie-images/1.Sharkie/1.IDLE/1.png");
   }
 
+  /**
+   * Minus health if sharky was hit with hit sound - set a variable when the hit was
+   */
   hit() {
     this.health -= 5;
-    world.level.audio[10].play();
+    this.world.audio.playSound('sharkyHit');
     this.lastHit = new Date().getTime();
   }
 
+  /**
+   * true if the last hit is longer ago than 1 second / false if not
+   * 
+   * @returns true or false
+   */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit;
     timepassed = timepassed / 1000;
     return timepassed < 1;
   }
 
+  /**
+   * Checking health from sharky
+   */
   checkHealth() {
-    setInterval(() => {
       if (this.health <= 0) {
         this.health = 0;
         this.dead = true;
       }
-    }, 500);
   }
 
+  /**
+   * Speedboost for sharky if all coins collected
+   */
   speedBoost() {
     if (world.coinBar.coins == 15) {
       this.sharkySpeed = 7;
     }
   }
 
+  /**
+   * Reset the longidle timer
+   */
   resetTimer() {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {

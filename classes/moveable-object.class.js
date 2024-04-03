@@ -15,19 +15,28 @@ class MoveableObjects extends DrawableObject {
   idleplayed = false;
   damageToEnemies = 50;
 
+  /**
+   * If the boss is dead, the win sound will playing and the winning screen pop up
+   */
   youWin() {
     if (this.endBossDead) {
-      world.level.audio[7].play();
+      world.audio.playSound('win');
       showWinScreen();
     }
   }
 
+  /**
+   * How the enemy is moving to the left
+   */
   moveLeft() {
     setInterval(() => {
       this.pos_x -= this.speed;
     }, 1000 / 60);
   }
 
+  /**
+   * Set a boolean if the enemys reaching a specific point on canvas
+   */
   checkPosition() {
     if (this.pos_y <= 0) {
       this.direction = true;
@@ -36,6 +45,9 @@ class MoveableObjects extends DrawableObject {
     }
   }
 
+  /**
+   * Check the position for enemy when they go up and down
+   */
   moveUpAndDown() {
     setInterval(() => {
       this.checkPosition();
@@ -48,6 +60,11 @@ class MoveableObjects extends DrawableObject {
     }, 1000 / 60);
   }
 
+  /**
+   * Playing a animation if anyone is dead
+   * 
+   * @param {array} arr - Array with images
+   */
   isDead(arr) {
     if (!this.animationPlayed) {
       this.isAnimated = false;
@@ -56,6 +73,11 @@ class MoveableObjects extends DrawableObject {
     }
   }
 
+  /**
+   * Playing a animation one time
+   * 
+   * @param {array} arr -  Array with images
+   */
   playAnimationOnce(arr) {
     if (!this.isAnimated) {
       this.isAnimated = true;
@@ -72,6 +94,11 @@ class MoveableObjects extends DrawableObject {
     }
   }
 
+  /**
+   * Playing the idle animation for sharky
+   * 
+   * @param {array} arr - Array with images
+   */
   idleAnimation(arr) {
     if (!this.idleplayed) {
       let currentFrame = 0;
@@ -87,12 +114,24 @@ class MoveableObjects extends DrawableObject {
     }
   }
 
+  /**
+   * Checkinh how long the bubble is traveled
+   * 
+   * @param {index} i - Index of the current bubble
+   * @returns - boolean
+   */
   bubbleTravelDistance(i) {
     if (this.world.bubble.length >= 1) {
       return Math.abs(this.world.bubble[i].initialPosition - this.world.bubble[i].pos_x) > 300;
     }
   }
 
+  /**
+   * compare if two objects colliding
+   * 
+   * @param {object} o - which object is colliding
+   * @returns boolean
+   */
   isColliding(o) {
     if (o.name == "boss") {
       return (
@@ -111,6 +150,12 @@ class MoveableObjects extends DrawableObject {
     }
   }
 
+  /**
+   * compare if two objects colliding
+   * 
+   * @param {object} o - which object are colliding
+   * @returns boolean
+   */
   isAttacking(o) {
     if (this.name == "bubble") {
       return (
@@ -128,9 +173,16 @@ class MoveableObjects extends DrawableObject {
     );
   }
 
+  /**
+   * Playing a sound when a enemy is hit and based on which attack the enemy was hit
+   * If the enemy is dead we are playing 'enemyDead'- sound
+   * 
+   * @param {object} enemy - which enemy is hit
+   * @param {index} i - which index the enemy have in the array
+   */
   enemieHit(enemy, i) {
     if (enemy.enemieHealth > 1) {
-      world.level.audio[8].play();
+      world.audio.playSound('enemyHit');
     }
     if (this.name == "bubble") {
       this.damageBoost();
@@ -138,38 +190,58 @@ class MoveableObjects extends DrawableObject {
     }
     enemy.enemieHealth -= this.damageToEnemies;
     if (enemy.enemieHealth <= 0) {
-      world.level.audio[9].play();
+      world.audio.playSound('enemyDead');
       enemy.dead = true;
       this.deleteEnemieOnDeath(i);
     }
   }
 
+  /**
+   * Deleting a enemy from enemie-array
+   * 
+   * @param {index} i - which index the enemy have
+   */
   deleteEnemieOnDeath(i) {
     setTimeout(() => {
       world.level.enemies.splice(i, 1);
     }, 3000);
   }
 
+  /**
+   * Set a boolean if a enemy is hit
+   * 
+   * @param {object} enemy - identify the enemy
+   */
   enemieHitAnimation(enemy) {
     enemy.isHit = true;
   }
 
+  /**
+   * If sharky reach a specific point on canvas, we let the boss span with an epic sound
+   * and set a boolean that the boss is spawned
+   */
   introduceBoss() {
     setInterval(() => {
       if (world.sharky.pos_x >= 2100 && !this.bossIsSpawned) {
-        world.level.audio[0].pause();
-        world.level.audio[1].play();
+        world.audio.stopSound('bgMusic');
+        world.audio.playSound('bossMusic');
         this.bossIsSpawned = true;
         this.spawnBoss();
       }
     }, 500);
   }
 
+  /**
+   * Adding the endboss to enemie-array
+   */
   spawnBoss() {
     let boss = new Endboss();
     world.level.enemies.push(boss);
   }
 
+  /**
+   * If sharky collected poisonbottle, he get a damageboost 
+   */
   damageBoost() {
     if (world.posionBar.poisonBottles >= 1) {
       this.damageToEnemies = 100;
@@ -177,6 +249,10 @@ class MoveableObjects extends DrawableObject {
       this.damageToEnemies = 50;
     }
   }
+
+  /**
+   * If we have more than one bottle, we reduce the amount of bottles
+   */
   poisonBottleCheck() {
     if (world.posionBar.poisonBottles >= 1) {
       world.posionBar.poisonBottles--;

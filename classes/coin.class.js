@@ -18,6 +18,9 @@ class Coin extends DrawableObject {
         this.swimmingCoins();
     }
 
+    /**
+     * Coin floating animation
+     */
     swimmingCoins() {
         setInterval(() => {
             this.playAnimation(this.SPINNING_COINS);

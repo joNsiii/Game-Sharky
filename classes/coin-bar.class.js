@@ -19,6 +19,9 @@ class CoinBar extends DrawableObject {
         this.updateStatusBar();
     }
 
+    /**
+     * Updates the coin statusbar
+     */
     updateStatusBar() {
         setInterval(() => {
             if (this.coins == 0) {

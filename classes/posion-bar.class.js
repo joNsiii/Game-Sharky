@@ -18,6 +18,9 @@ class PosionBar extends DrawableObject {
         this.updateStatusBar();
     }
 
+    /**
+     * update the statusbar for poisonbottles
+     */
     updateStatusBar() {
         setInterval(() => {
             if (this.poisonBottles == 0) {

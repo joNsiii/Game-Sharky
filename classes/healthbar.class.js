@@ -9,6 +9,9 @@ class Healthbar extends DrawableObject {
         this.updateHealthBar();
     }
 
+    /**
+     * updates the health statusbar based on how much life sharky have
+     */
     updateHealthBar() {
         setInterval(() => {
             if (world.sharky.health <= 80 && world.sharky.health >= 60) {

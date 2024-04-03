@@ -34,6 +34,9 @@ class JellyFish extends MoveableObjects {
     this.movement();
   }
 
+  /**
+   * Playing enemy animation based on conditions
+   */
   animation() {
     setInterval(() => {
       if (!this.isHit && !this.dead) {
@@ -47,16 +50,25 @@ class JellyFish extends MoveableObjects {
     }, 200);
   }
 
+  /**
+   * What is the enemy doing if he is not dead
+   */
   movement() {
     if (!this.dead) {
       this.moveUpAndDown();
     }
   }
 
+  /**
+   * Normal swim animation
+   */
   normalSwim() {
     this.playAnimation(this.movementImages);
   }
 
+  /**
+   * Play aniamtion if the jellyfish is hit or touched
+   */
   aggroSwim() {
     this.playAnimation(this.ELECTRIC_JELLYFISH);
     setTimeout(() => {
@@ -64,6 +76,9 @@ class JellyFish extends MoveableObjects {
     }, 2000);
   }
 
+  /**
+   * Animation if the enemy is dead
+   */
   enemieIsDead() {
     setInterval(() => {
       this.playAnimationOnce(this.DEAD_ANIMATION);

@@ -69,7 +69,7 @@ class DrawableObject {
 
   coinCollected() {
       this.coins++;
-      world.level.audio[4].cloneNode().play();
+      world.audio.playCloneSound('coin');
     if (this.coins >= 15) {
       this.coins = 15;
     }
@@ -77,7 +77,7 @@ class DrawableObject {
 
   poisonBottleCollected() {
       this.poisonBottles++;
-      world.level.audio[2].cloneNode().play();
+      world.audio.playCloneSound('bottle');
     if (this.poisonBottles >= 5) {
       this.poisonBottles = 5;
     }
