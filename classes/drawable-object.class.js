@@ -10,13 +10,6 @@ class DrawableObject {
   coins = 0;
   poisonBottles = 0;
 
-
-  /**
-   * constructor
-   */
-  constructor() {
-
-  }
   /**
    * load image to canvas
    * 

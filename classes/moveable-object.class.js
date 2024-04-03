@@ -15,12 +15,6 @@ class MoveableObjects extends DrawableObject {
   idleplayed = false;
   damageToEnemies = 50;
 
-  /**
-   * constructor
-   */
-  constructor() {
-
-  }
 
   /**
    * If the boss is dead, the win sound will playing and the winning screen pop up
