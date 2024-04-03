@@ -26,20 +26,6 @@ function initLevel() {
       new Coin(1600, 150),
     ],
     [new PoisonBottle(), new PoisonBottle(), new PoisonBottle(), new PoisonBottle(), new PoisonBottle()],
-    [
-      new Audio("audio/bg-music.mp3"),
-      new Audio("audio/boss-music-bg.mp3"),
-      new Audio("audio/bottle-collected.mp3"),
-      new Audio("audio/bubble-sound.mp3"),
-      new Audio("audio/coin-collected.mp3"),
-      new Audio("audio/underwater-swim.mp3"),
-      new Audio("audio/hit.mp3"),
-      new Audio("audio/victory.mp3"),
-      new Audio("audio/enemy-hit.mp3"),
-      new Audio("audio/enemy-dead.mp3"),
-      new Audio("audio/sharky-hit.mp3"),
-      new Audio("audio/electric_sound.mp3"),
-      new Audio("audio/game-over.mp3"),
-    ]
+
   );
 }
