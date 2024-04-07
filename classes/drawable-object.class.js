@@ -97,7 +97,7 @@ class DrawableObject {
    */
   coinCollected() {
     this.coins++;
-    world.audio.playCloneSound("coin");
+    world.audio.playSound("coin");
     if (this.coins >= 15) {
       this.coins = 15;
     }
@@ -108,7 +108,7 @@ class DrawableObject {
    */
   poisonBottleCollected() {
     this.poisonBottles++;
-    world.audio.playCloneSound("bottle");
+    world.audio.playSound("bottle");
     if (this.poisonBottles >= 5) {
       this.poisonBottles = 5;
     }

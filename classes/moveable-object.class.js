@@ -12,6 +12,7 @@ class MoveableObjects extends DrawableObject {
   hitAnimation = false;
   isHit = false;
   bossIsSpawned = false;
+  bossObject = false;
   idleplayed = false;
   damageToEnemies = 50;
 
@@ -227,6 +228,7 @@ class MoveableObjects extends DrawableObject {
         world.audio.bgmusic.pause();
         world.audio.playSound("bossMusic");
         this.bossIsSpawned = true;
+        this.bossObject = true;
         this.spawnBoss();
       }
     }, 500);

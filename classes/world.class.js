@@ -4,6 +4,7 @@ class World {
   healthBar = new Healthbar();
   coinBar = new CoinBar();
   posionBar = new PosionBar();
+  bossBar = new Bossbar();
   audio = new SoundManager();
   bubble = [];
   canvas;
@@ -34,9 +35,6 @@ class World {
     if (!this.gamePaused) {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.addBackgroundToCanvas();
-      this.addToCanvas(this.healthBar);
-      this.addToCanvas(this.coinBar);
-      this.addToCanvas(this.posionBar);
       this.reload();
       this.ctx.translate(this.camera_x, 0);
       this.addObjectsToCanvas(this.bubble);
@@ -45,6 +43,12 @@ class World {
       this.addObjectsToCanvas(this.level.enemies);
       this.addToCanvas(this.sharky);
       this.ctx.translate(-this.camera_x, 0);
+      this.addToCanvas(this.healthBar);
+      this.addToCanvas(this.coinBar);
+      this.addToCanvas(this.posionBar);
+      if (this.sharky.bossIsSpawned) {
+        this.addToCanvas(this.bossBar);
+      }
     }
   }
 

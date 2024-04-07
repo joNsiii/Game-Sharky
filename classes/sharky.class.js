@@ -179,18 +179,6 @@ class Sharky extends MoveableObjects {
   }
 
   /**
-   * play dead animation for sharky and showing game over screen
-   */
-  sharkyIsDead() {}
-
-  /**
-   * Play dead animation for sharky with 1 second delay
-   */
-  DeadAnimationForSharky() {
-    
-  }
-
-  /**
    * Shown game over screen with 3 seconds delay and switch music
    */
   gameOverScreen() {
@@ -238,7 +226,6 @@ class Sharky extends MoveableObjects {
             this.resetTimer();
             this.playAnimation(this.movementImages);
             this.world.audio.playSound("swim");
-            this.world.audio.setVolume("swim", 0.2);
           } else {
             this.world.audio.stopSound("swim");
             this.sharkyIsMoving = false;

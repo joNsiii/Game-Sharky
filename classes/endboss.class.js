@@ -66,7 +66,7 @@ class Endboss extends MoveableObjects {
     this.loadImages(this.ENEMY_HIT);
     this.loadImages(this.INTRODUCING);
     this.loadImages(this.ATTACK);
-    this.enemieHealth = 600;
+    this.enemieHealth = 500;
   }
 
   /**
@@ -93,6 +93,7 @@ class Endboss extends MoveableObjects {
       }
       if (this.dead) {
         this.bossIsDead();
+        world.sharky.bossObject = false;
       }
     }, 100);
   }
