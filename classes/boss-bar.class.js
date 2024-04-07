@@ -10,15 +10,15 @@ class Bossbar extends DrawableObject {
    */
   constructor() {
     super().loadImage("img/sharkie-images/4.Marcadores/green/Life/100_  copia 2.png");
-    this.updateHealthBar();
     this.checkBossSpawn();
   }
 
   checkBossSpawn() {
     setInterval(() => {
+      this.updateHealthBar();
       if (world.sharky.bossObject) {
         this.endBoss = world.level.enemies[10].enemieHealth;
-      }this.endBoss = 0;
+      }
     }, 500);
   }
 
