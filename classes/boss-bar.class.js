@@ -18,7 +18,6 @@ class Bossbar extends DrawableObject {
     setInterval(() => {
       if (world.sharky.bossObject) {
         this.endBoss = world.level.enemies[10].enemieHealth;
-        console.log(this.endBoss);
       }this.endBoss = 0;
     }, 500);
   }
