@@ -84,7 +84,7 @@ function showWinScreen() {
  * Checking the size of the window
  */
 function checkWindowSize() {
-  if (window.innerWidth < 900 || window.innerHeight < 380) {
+  if (window.innerWidth < 900 || window.innerHeight < 360) {
     displayMobileButton();
   } else {
     hideMobileButton();
@@ -95,7 +95,7 @@ function checkWindowSize() {
  * Show a message on load if the window is too small
  */
 window.addEventListener("load", function () {
-  if (window.innerWidth < 720 || window.innerHeight < 380) {
+  if (window.innerWidth < 720 || window.innerHeight < 360) {
     document.getElementById("turn-device-message").style.display = "block";
     hideInGameMenuButton();
   }
@@ -105,12 +105,12 @@ window.addEventListener("load", function () {
  * show a message on resize if the window is too small
  */
 window.addEventListener("resize", function () {
-  if ((gameRunning && window.innerWidth < 900) || window.innerHeight < 480) {
+  if ((gameRunning && window.innerWidth < 900) || window.innerHeight < 450) {
     displayMobileButton();
   } else {
     hideMobileButton();
   }
-  if (window.innerWidth < 720 || window.innerHeight < 380) {
+  if (window.innerWidth < 720 || window.innerHeight < 360) {
     document.getElementById("turn-device-message").style.display = "block";
     hideMobileButton();
     hideInGameMenuButton();
